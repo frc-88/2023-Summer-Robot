@@ -13,7 +13,40 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
+    ///////////////////////////////////////////////////////
+    // DRIVETRAIN
+    ///////////////////////////////////////////////////////
+
+    /**
+     * The left-to-right distance between the drivetrain wheels
+     *
+     * Should be measured from center to center.
+     */
+    public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0.56515; // 22.25 inches
+    /**
+     * The front-to-back distance between the drivetrain wheels.
+     *
+     * Should be measured from center to center.
+     */
+    public static final double DRIVETRAIN_WHEELBASE_METERS = 0.57785; // 22.75 inches
+
+    public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 3; 
+    public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 2; 
+    public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 11; 
+
+    public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 0; 
+    public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 7; 
+    public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 10; 
+
+    public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 6; 
+    public static final int BACK_LEFT_MODULE_STEER_MOTOR = 4; 
+    public static final int BACK_LEFT_MODULE_STEER_ENCODER = 9; 
+
+    public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 1; 
+    public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 5; 
+    public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 8;
+	
+	// Controllers
+	public static final int DRIVER_CONTROLLER_ID = 0;
+	
 }
