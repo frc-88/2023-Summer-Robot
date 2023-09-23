@@ -48,7 +48,7 @@ public final class Constants {
 	
 	// Controllers
 	public static final int DRIVER_CONTROLLER_ID = 0;
-
+    public static final int Joystick = 1;
 	
     // Arm Motors
     public static final int ARM_GEARBOX = 17;

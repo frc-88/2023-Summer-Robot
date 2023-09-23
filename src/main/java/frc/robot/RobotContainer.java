@@ -6,18 +6,23 @@
 package frc.robot;
 import frc.robot.util.controllers.DriverController;
 import frc.robot.util.controllers.FrskyDriverController;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.Arm.Arm;
 
 
 public class RobotContainer {
   private final SwerveDrive m_drive = new SwerveDrive();
   private final DriverController m_driverController = new FrskyDriverController(Constants.DRIVER_CONTROLLER_ID);
+  private final Joystick m_Joystick = new Joystick(Constants.Joystick);
+  private final Arm m_Arm = new Arm();
 
   public RobotContainer() {
     configureControllers();
@@ -26,7 +31,7 @@ public class RobotContainer {
   }
 
   private void configureControllers() {
-    
+    new JoystickButton(m_Joystick, 10).whileTrue(m_Arm.Moverollers());
   }
 
   private void configureDefaultCommands() {
