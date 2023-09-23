@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -16,7 +17,7 @@ public class Arm extends SubsystemBase {
     m_Cuberoller.set(0.5);
     }
 public void MoveConeRollers() {
-    
+
 }
 
     public void StopRollers() {
@@ -25,10 +26,10 @@ public void MoveConeRollers() {
     }
 
     public CommandBase MoveCuberollers() {
-      return new InstantCommand(() -> {MoveCubeRollers();});
+      return new RunCommand(() -> {MoveCubeRollers();}, this);
     }
 
     public CommandBase Stoprollers() {
-        return new InstantCommand(() -> {StopRollers();});
+        return new RunCommand(() -> {StopRollers();}, this);
     }
 }
