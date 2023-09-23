@@ -49,4 +49,9 @@ public final class Constants {
 	// Controllers
 	public static final int DRIVER_CONTROLLER_ID = 0;
 	
+    // Arm Motors
+    public static final int ARM_GEARBOX = 17;
+    public static final int END_EFFECTOR_PIVOT = 16;
+    public static final int END_EFFECTOR_PIVOT_ENCODER = 16;
+
 }
