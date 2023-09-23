@@ -55,4 +55,7 @@ public final class Constants {
     public static final int END_EFFECTOR_PIVOT = 16;
     public static final int END_EFFECTOR_PIVOT_ENCODER = 16;
 
+    // End effector motors
+    public static final int CUBE_ROLLER = 14;
+    public static final int CONE_ROLLER = 15;
 }
