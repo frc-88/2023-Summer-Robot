@@ -11,6 +11,7 @@ import static frc.robot.Constants.DRIVETRAIN_WHEELBASE_METERS;
 import com.ctre.phoenix.music.Orchestra;
 import com.kauailabs.navx.frc.AHRS;
 import com.swervedrivespecialties.swervelib.Mk4iSwerveModuleHelper;
+import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 
 import edu.wpi.first.math.MatBuilder;
@@ -86,10 +87,11 @@ public class SwerveDrive extends SubsystemBase {
          */
 
         /*public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0 / 60.0 *
-                        SdsModuleConfigurations.MK4I_L2.getDriveReduction() *
-                        SdsModuleConfigurations.MK4I_L2.getWheelDiameter() * Math.PI;*/
+                        SdsModuleConfigurations.MK4I_L3.getDriveReduction() *
+                        SdsModuleConfigurations.MK4I_L3.getWheelDiameter() * Math.PI;*/
 
-        public static final double MAX_VELOCITY_METERS_PER_SECOND = 4.97;
+        public static final double MAX_VELOCITY_METERS_PER_SECOND = 6380.0/60.0 * SdsModuleConfigurations.MK4I_L3.getDriveReduction() *
+        SdsModuleConfigurations.MK4I_L3.getWheelDiameter()*Math.PI;
 
         /**
          * The maximum angular velocity of the robot in radians per second.
@@ -174,28 +176,28 @@ public class SwerveDrive extends SubsystemBase {
 
                 m_frontLeftModule = Mk4iSwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Front Left", BuiltInLayouts.kList).withSize(2, 4).withPosition(0, 0),
-                                Mk4iSwerveModuleHelper.GearRatio.L2,
+                                Mk4iSwerveModuleHelper.GearRatio.L3,
                                 Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR,
                                 Constants.FRONT_LEFT_MODULE_STEER_MOTOR,
                                 Constants.FRONT_LEFT_MODULE_STEER_ENCODER,
                                 -Math.toRadians(p_frontLeftOffset.getValue()));
                 m_frontRightModule = Mk4iSwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Front Right", BuiltInLayouts.kList).withSize(2, 4).withPosition(2, 0),
-                                Mk4iSwerveModuleHelper.GearRatio.L2,
+                                Mk4iSwerveModuleHelper.GearRatio.L3,
                                 Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR,
                                 Constants.FRONT_RIGHT_MODULE_STEER_MOTOR,
                                 Constants.FRONT_RIGHT_MODULE_STEER_ENCODER,
                                 -Math.toRadians(p_frontRightOffset.getValue()));
                 m_backLeftModule = Mk4iSwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Back Left", BuiltInLayouts.kList).withSize(2, 4).withPosition(4, 0),
-                                Mk4iSwerveModuleHelper.GearRatio.L2,
+                                Mk4iSwerveModuleHelper.GearRatio.L3,
                                 Constants.BACK_LEFT_MODULE_DRIVE_MOTOR,
                                 Constants.BACK_LEFT_MODULE_STEER_MOTOR,
                                 Constants.BACK_LEFT_MODULE_STEER_ENCODER,
                                 -Math.toRadians(p_backLeftOffset.getValue()));
                 m_backRightModule = Mk4iSwerveModuleHelper.createFalcon500(
                                 tab.getLayout("Back Right", BuiltInLayouts.kList).withSize(2, 4).withPosition(6, 0),
-                                Mk4iSwerveModuleHelper.GearRatio.L2,
+                                Mk4iSwerveModuleHelper.GearRatio.L3,
                                 Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR,
                                 Constants.BACK_RIGHT_MODULE_STEER_MOTOR,
                                 Constants.BACK_RIGHT_MODULE_STEER_ENCODER,
