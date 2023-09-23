@@ -31,11 +31,12 @@ public class RobotContainer {
   }
 
   private void configureControllers() {
-    new JoystickButton(m_Joystick, 10).whileTrue(m_Arm.Moverollers());
+    new JoystickButton(m_Joystick, 10).and(new JoystickButton(m_Joystick, 17).negate()).whileTrue(m_Arm.MoveCuberollers());
   }
 
   private void configureDefaultCommands() {
     m_drive.setDefaultCommand(m_drive.grantDriveCommandFactory(m_drive, m_driverController));
+    m_Arm.setDefaultCommand(m_Arm.Stoprollers());
   }
 
   private void configureSmartDashboardButtons() {
