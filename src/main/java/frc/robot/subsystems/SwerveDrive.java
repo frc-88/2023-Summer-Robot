@@ -38,6 +38,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -437,8 +438,8 @@ public class SwerveDrive extends SubsystemBase {
                 m_orchestra.addInstrument(m_backLeftModule.getSteerController().getMotor());
                 m_orchestra.addInstrument(m_backRightModule.getSteerController().getMotor());
         }
-        public InstantCommand resetYawCommandFactory() {
-                return new InstantCommand(() -> {zeroGyroscope();});
+        public CommandBase resetYawCommandFactory() {
+                return new InstantCommand(() -> {zeroGyroscope();}).ignoringDisable(true);
         }
 
         public InstantCommand pivotOnCommandFactory() {
