@@ -14,16 +14,19 @@ public class Arm extends SubsystemBase {
     private final WPI_TalonFX m_Coneroller = new WPI_TalonFX(Constants.CONE_ROLLER);
     private final WPI_TalonFX m_ArmMain = new WPI_TalonFX(Constants.ARM_GEARBOX);
     
-    public void MoveArm() {
+    public void MoveArmForward() {
         m_ArmMain.set(.5);
        }
     
-   
+       public void MoveArmBack() {
+        m_ArmMain.set(-0.5);
+       }
+
     public void MoveCubeRollers() {
     m_Cuberoller.set(0.5);
     }
-public void MoveConeRollers() {
-
+    public void MoveConeRollers() {
+    m_Coneroller.set(0.5);
 }
 
     public void StopRollers() {
@@ -33,6 +36,10 @@ public void MoveConeRollers() {
 
     public CommandBase MoveCuberollers() {
       return new RunCommand(() -> {MoveCubeRollers();}, this);
+    }
+
+    public CommandBase MoveConerollers() {
+        return new RunCommand(() -> {MoveConeRollers();}, this);
     }
 
     public CommandBase Stoprollers() {
