@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoBalanceSimple;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Arm.Arm;
 import frc.robot.subsystems.ButtonBox;
@@ -25,8 +26,12 @@ public class RobotContainer {
   private final DriverController m_driverController = new FrskyDriverController(Constants.DRIVER_CONTROLLER_ID);
   //private final Joystick m_Joystick = new Joystick(Constants.Joystick);
   private final Arm m_Arm = new Arm();
+<<<<<<< HEAD
   private final Roller m_Roller = new Roller();
   private final ButtonBox m_buttonBox = new ButtonBox(Constants.BUTTON_BOX_ID);
+=======
+  AutoBalanceSimple autoBalanceCommand = new AutoBalanceSimple(m_drive);
+>>>>>>> b72b251eb87cb8b320f3de1e0bd5f6a6d6112ff9
 
   public RobotContainer() {
     configureControllers();
@@ -42,7 +47,12 @@ public class RobotContainer {
     new JoystickButton(m_Joystick, 18).whileTrue(m_Arm.Score());
     new JoystickButton(m_Joystick,2).whileTrue(m_Arm.EndEffectorUp());
     new JoystickButton(m_Joystick, 12).whileTrue(m_Arm.EndEffectorDown());
+<<<<<<< HEAD
   } */
+=======
+    new JoystickButton(m_Joystick, 5).whileTrue(autoBalanceCommand);
+  }
+>>>>>>> b72b251eb87cb8b320f3de1e0bd5f6a6d6112ff9
 
   private void configureDefaultCommands() {
     m_drive.setDefaultCommand(m_drive.grantDriveCommandFactory(m_drive, m_driverController));
