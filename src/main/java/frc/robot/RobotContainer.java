@@ -35,13 +35,14 @@ public class RobotContainer {
     new JoystickButton(m_Joystick, 10).and(new JoystickButton(m_Joystick, 17)).whileTrue(m_Arm.MoveConerollers());
     new JoystickButton(m_Joystick, 11).whileTrue(m_Arm.MoveArmForward());
     new JoystickButton(m_Joystick, 13).whileTrue(m_Arm.MoveArmBack());
-
-    
+    new JoystickButton(m_Joystick, 18).whileTrue(m_Arm.Score());
+    new JoystickButton(m_Joystick,2).whileTrue(m_Arm.EndEffectorUp());
+    new JoystickButton(m_Joystick, 12).whileTrue(m_Arm.EndEffectorDown());
   }
 
   private void configureDefaultCommands() {
     m_drive.setDefaultCommand(m_drive.grantDriveCommandFactory(m_drive, m_driverController));
-    m_Arm.setDefaultCommand(m_Arm.Stoprollers().alongWith(m_Arm.StopArm()));
+    m_Arm.setDefaultCommand(m_Arm.Stoprollers());
   }
 
 
