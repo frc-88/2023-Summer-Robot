@@ -19,7 +19,11 @@ public class Arm extends SubsystemBase {
        }
     
        public CommandBase MoveArmBack() {
-        return new RunCommand(() -> m_ArmMain.set(-0.5), this);
+        return new RunCommand(() -> m_ArmMain.set(0.5), this);
+       }
+
+       public CommandBase StopArm() {
+        return new RunCommand(() -> m_ArmMain.set(0), this);
        }
 
     public CommandBase MoveCuberollers() {

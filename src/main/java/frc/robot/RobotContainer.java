@@ -32,19 +32,16 @@ public class RobotContainer {
 
   private void configureControllers() {
     new JoystickButton(m_Joystick, 10).and(new JoystickButton(m_Joystick, 17).negate()).whileTrue(m_Arm.MoveCuberollers());
-    new JoystickButton(m_Joystick, 11).and(new JoystickButton(m_Joystick, 12).negate()).whileTrue(m_Arm.MoveConerollers());
-    
-    new JoystickButton(m_Joystick, 13).whileTrue(m_Arm.Stoprollers());
-
-    new JoystickButton(m_Joystick, 15).whileTrue(m_Arm.MoveArmForward());
-    new JoystickButton(m_Joystick, 16).whileTrue(m_Arm.MoveArmBack());
+    new JoystickButton(m_Joystick, 10).and(new JoystickButton(m_Joystick, 17)).whileTrue(m_Arm.MoveConerollers());
+    new JoystickButton(m_Joystick, 11).whileTrue(m_Arm.MoveArmForward());
+    new JoystickButton(m_Joystick, 13).whileTrue(m_Arm.MoveArmBack());
 
     
   }
 
   private void configureDefaultCommands() {
     m_drive.setDefaultCommand(m_drive.grantDriveCommandFactory(m_drive, m_driverController));
-    m_Arm.setDefaultCommand(m_Arm.Stoprollers());
+    m_Arm.setDefaultCommand(m_Arm.Stoprollers().alongWith(m_Arm.StopArm()));
   }
 
 
