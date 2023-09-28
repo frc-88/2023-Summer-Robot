@@ -58,4 +58,12 @@ public final class Constants {
     // End effector motors
     public static final int CUBE_ROLLER = 14;
     public static final int CONE_ROLLER = 15;
+
+     // Drive Train
+     public static final int CHARGE_STATION_LEVEL = 2;
+
+     // Trajectory
+     public static final double MAX_TRAJ_VELOCITY = 4;
+     public static final double MAX_TRAJ_CENTRIP_ACC = 3;
+     public static final double MAX_TRAJ_ACCELERATION = 3;
 }
