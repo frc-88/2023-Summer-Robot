@@ -26,12 +26,8 @@ public class RobotContainer {
   private final DriverController m_driverController = new FrskyDriverController(Constants.DRIVER_CONTROLLER_ID);
   //private final Joystick m_Joystick = new Joystick(Constants.Joystick);
   private final Arm m_Arm = new Arm();
-<<<<<<< HEAD
-  private final Roller m_Roller = new Roller();
   private final ButtonBox m_buttonBox = new ButtonBox(Constants.BUTTON_BOX_ID);
-=======
   AutoBalanceSimple autoBalanceCommand = new AutoBalanceSimple(m_drive);
->>>>>>> b72b251eb87cb8b320f3de1e0bd5f6a6d6112ff9
 
   public RobotContainer() {
     configureControllers();
@@ -39,7 +35,7 @@ public class RobotContainer {
     configureSmartDashboardButtons();
   }
 
- /*  private void configureControllers() {
+ /* /*  private void configureControllers() {
     new JoystickButton(m_Joystick, 10).and(new JoystickButton(m_Joystick, 17).negate()).whileTrue(m_Arm.MoveCuberollers());
     new JoystickButton(m_Joystick, 10).and(new JoystickButton(m_Joystick, 17)).whileTrue(m_Arm.MoveConerollers());
     new JoystickButton(m_Joystick, 11).whileTrue(m_Arm.MoveArmForward());
@@ -47,16 +43,12 @@ public class RobotContainer {
     new JoystickButton(m_Joystick, 18).whileTrue(m_Arm.Score());
     new JoystickButton(m_Joystick,2).whileTrue(m_Arm.EndEffectorUp());
     new JoystickButton(m_Joystick, 12).whileTrue(m_Arm.EndEffectorDown());
-<<<<<<< HEAD
-  } */
-=======
     new JoystickButton(m_Joystick, 5).whileTrue(autoBalanceCommand);
-  }
->>>>>>> b72b251eb87cb8b320f3de1e0bd5f6a6d6112ff9
+  } */
 
   private void configureDefaultCommands() {
     m_drive.setDefaultCommand(m_drive.grantDriveCommandFactory(m_drive, m_driverController));
-    m_Arm.setDefaultCommand(new ParallelCommandGroup(m_Arm.Stoprollers(), m_Arm.StopArm(), m_Arm.EndEffectorStop()));
+    //m_Arm.setDefaultCommand(new ParallelCommandGroup(m_Arm.Stoprollers(), m_Arm.StopArm(), m_Arm.EndEffectorStop()));
   }
 
 
@@ -70,7 +62,7 @@ public class RobotContainer {
 
 
   private void configureControllers() {
-  m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch);
+   m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch);
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate());
   }
 
