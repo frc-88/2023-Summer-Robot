@@ -24,7 +24,7 @@ public class RobotContainer {
   private final DriverController m_driverController = new FrskyDriverController(Constants.DRIVER_CONTROLLER_ID);
   private final Joystick m_Joystick = new Joystick(Constants.Joystick);
   private final Arm m_Arm = new Arm();
-  AutoBalanceSimple autoBalanceCommand = new AutoBalanceSimple(m_drive);
+  private final AutoBalanceSimple autoBalanceCommand = new AutoBalanceSimple(m_drive);
 
   public RobotContainer() {
     configureControllers();
