@@ -4,6 +4,7 @@
 
 // straight copied code
 package frc.robot;
+import frc.robot.util.controllers.ButtonBox;
 import frc.robot.util.controllers.DriverController;
 import frc.robot.util.controllers.FrskyDriverController;
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,8 +18,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoBalanceSimple;
 import frc.robot.subsystems.SwerveDrive;
-import frc.robot.subsystems.Arm.Arm;
-import frc.robot.subsystems.ButtonBox;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Roller;
 
 public class RobotContainer {
@@ -62,7 +62,7 @@ public class RobotContainer {
 
 
   private void configureControllers() {
-   m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch);
+    m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch);
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate());
   }
 
