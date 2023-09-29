@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoBalanceSimple;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Arm.Arm;
 
@@ -23,6 +24,7 @@ public class RobotContainer {
   private final DriverController m_driverController = new FrskyDriverController(Constants.DRIVER_CONTROLLER_ID);
   private final Joystick m_Joystick = new Joystick(Constants.Joystick);
   private final Arm m_Arm = new Arm();
+  AutoBalanceSimple autoBalanceCommand = new AutoBalanceSimple(m_drive);
 
   public RobotContainer() {
     configureControllers();
@@ -38,6 +40,7 @@ public class RobotContainer {
     new JoystickButton(m_Joystick, 18).whileTrue(m_Arm.Score());
     new JoystickButton(m_Joystick,2).whileTrue(m_Arm.EndEffectorUp());
     new JoystickButton(m_Joystick, 12).whileTrue(m_Arm.EndEffectorDown());
+    new JoystickButton(m_Joystick, 5).whileTrue(autoBalanceCommand);
   }
 
   private void configureDefaultCommands() {
