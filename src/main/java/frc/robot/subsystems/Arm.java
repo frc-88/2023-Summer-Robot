@@ -1,8 +1,14 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.CANCoder;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -11,15 +17,32 @@ import frc.robot.Constants;
 
 public class Arm extends SubsystemBase {
 
-  private final WPI_TalonFX m_Cuberoller = new WPI_TalonFX(Constants.CUBE_ROLLER);
-  private final WPI_TalonFX m_Coneroller = new WPI_TalonFX(Constants.CONE_ROLLER);
   private final WPI_TalonFX m_ArmMainMain = new WPI_TalonFX(Constants.ARM_GEARBOX);
   private final WPI_TalonFX m_EndEffector = new WPI_TalonFX(Constants.END_EFFECTOR_PIVOT);
+  private final DigitalInput m_coastMode = new DigitalInput(0);
 
   public Arm(){
     m_ArmMainMain.configOpenloopRamp(1);
     m_EndEffector.configOpenloopRamp(0.5);
+    m_EndEffector.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    m_EndEffector.setSelectedSensorPosition(0);
+    m_ArmMainMain.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+    m_ArmMainMain.setSelectedSensorPosition(0);
+    m_EndEffector.configMotionCruiseVelocity(100);
+    m_EndEffector.configMotionAcceleration(100);
+    m_ArmMainMain.configMotionAcceleration(100);
+    m_ArmMainMain.configMotionCruiseVelocity(100);
+    m_EndEffector.config_kD(0, 0.5);
+    m_EndEffector.config_kP(0, 1);
+    m_EndEffector.config_kF(0, 0.057);
+    m_ArmMainMain.config_kD(0, 0.5);
+    m_ArmMainMain.config_kP(0, 1);
+    m_ArmMainMain.config_kF(0, 0.057);
+    m_ArmMainMain.setNeutralMode(NeutralMode.Brake);
+    m_EndEffector.setNeutralMode(NeutralMode.Brake);
   }
+
+
 
   public CommandBase MoveArmForward() {
     return new RunCommand(() -> m_ArmMainMain.set(-0.5), this);
@@ -31,43 +54,6 @@ public class Arm extends SubsystemBase {
 
   public CommandBase StopArm() {
     return new RunCommand(() -> m_ArmMainMain.set(0), this);
-  }
-
-  public CommandBase MoveCuberollers() {
-    return new RunCommand(() -> {
-      m_Coneroller.set(0.5);
-      m_Cuberoller.set(0.5);
-    }, this);
-  }
-
-  public CommandBase MoveConerollers() {
-    return new RunCommand(() -> {
-      m_Coneroller.set(0.5);
-      m_Cuberoller.set(-0.5);
-    }, this);
-  }
-
-  public CommandBase Stoprollers() {
-    return new RunCommand(() -> {
-      m_Coneroller.set(0);
-      m_Cuberoller.set(0);
-    }, this);
-  }
-
-  public CommandBase ScoreCube() {
-    return new RunCommand(() -> {
-      m_Coneroller.set(-1);
-      m_Cuberoller.set(-1);
-      System.out.println("Cube Cube Cube!");
-    }, this);
-  }
-
-  public CommandBase ScoreCone() {
-    return new RunCommand(() -> {
-      m_Coneroller.set(-1);
-      m_Cuberoller.set(1);
-      System.out.println("Cone Cone Cone!");
-    }, this);
   }
 
   public CommandBase EndEffectorUp() {
@@ -100,11 +86,21 @@ public class Arm extends SubsystemBase {
 
   public CommandBase FreezeArm() {
     return new InstantCommand(() -> {
-      m_ArmMainMain.setNeutralMode(NeutralMode.Brake);
-      m_EndEffector.setNeutralMode(NeutralMode.Brake);
-      m_Coneroller.set(0);
-      m_Cuberoller.set(0);
       m_EndEffector.set(0);
       m_ArmMainMain.set(0);
   }, this);}
+
+  public CommandBase stow() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+    }, this);
+  }
+
+public void periodic() {
+  SmartDashboard.putNumber("End Effector Encoder", m_EndEffector.getSelectedSensorPosition());
+  SmartDashboard.putNumber("Arm Positon", m_ArmMainMain.getSelectedSensorPosition());
+  SmartDashboard.putBoolean("Coast Mode", m_coastMode.get());
+}
+
 }

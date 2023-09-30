@@ -21,12 +21,11 @@ import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Roller;
-import frc.robot.util.Arm.ArmStates;
 
 public class RobotContainer {
   private final SwerveDrive m_drive = new SwerveDrive();
   private final DriverController m_driverController = new FrskyDriverController(Constants.DRIVER_CONTROLLER_ID);
-  private final EndEffector m_EndEffector = new EndEffector();
+  private final Roller m_Roller = new Roller();
   //private final Joystick m_Joystick = new Joystick(Constants.Joystick);
   private final Arm m_Arm = new Arm();
   private final ButtonBox m_buttonBox = new ButtonBox(Constants.BUTTON_BOX_ID);
@@ -51,7 +50,9 @@ public class RobotContainer {
 
   private void configureDefaultCommands() {
     m_drive.setDefaultCommand(m_drive.grantDriveCommandFactory(m_drive, m_driverController));
-    m_Arm.setDefaultCommand(m_Arm.FreezeArm());
+    m_Arm.setDefaultCommand(m_Arm.stow());
+    m_Arm.setDefaultCommand(m_Roller.Stoprollers());
+    
   }
 
 
@@ -67,9 +68,9 @@ public class RobotContainer {
   private void configureControllers() {
     //SCORE
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch)
-    .whileTrue(m_Arm.ScoreCone());
+    .whileTrue(m_Roller.ScoreCone());
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate())
-    .whileTrue(m_Arm.ScoreCube());
+    .whileTrue(m_Roller.ScoreCube());
 
     //END EFFECTOR ROTATE
     m_buttonBox.indicateMid.whileTrue(m_Arm.EndEffectorUp());
@@ -81,9 +82,9 @@ public class RobotContainer {
 
     //INTAKE
     m_buttonBox.intakeButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch)
-    .whileTrue(m_Arm.MoveConerollers());
+    .whileTrue(m_Roller.MoveConerollers());
     m_buttonBox.intakeButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate())
-    .whileTrue(m_Arm.MoveCuberollers());
+    .whileTrue(m_Roller.MoveCuberollers());
 
 
   }
