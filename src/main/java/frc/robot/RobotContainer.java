@@ -65,17 +65,25 @@ public class RobotContainer {
 
 
   private void configureControllers() {
-    m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch);
-    m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate());
+    //SCORE
+    m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch)
+    .whileTrue(m_Arm.ScoreCone());
+    m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate())
+    .whileTrue(m_Arm.ScoreCube());
 
-    /* m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch)
-    .whileTrue(m_Arm.sendArmToState(ArmStates.getConeFromChute))
-    .whileTrue(m_EndEffector.grabConeFactory())
-    .onFalse(m_EndEffector.grabConeFactory().withTimeout(1));
-m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch.negate())
-    .whileTrue(m_Arm.sendArmToState(ArmStates.getCubeFromChute))
-    .whileTrue(m_EndEffector.grabCubeFactory())
-    .onFalse(m_EndEffector.grabCubeFactory().withTimeout(1)); */
+    //END EFFECTOR ROTATE
+    m_buttonBox.indicateMid.whileTrue(m_Arm.EndEffectorUp());
+    m_buttonBox.indicateHigh.whileTrue(m_Arm.EndEffectorDown());
+
+    //ARM ROTATE
+    m_buttonBox.Handoff.whileTrue(m_Arm.MoveArmBack());
+    m_buttonBox.getFromChuteButton.whileTrue(m_Arm.MoveArmForward());
+
+    //INTAKE
+    m_buttonBox.intakeButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch)
+    .whileTrue(m_Arm.MoveConerollers());
+    m_buttonBox.intakeButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate())
+    .whileTrue(m_Arm.MoveCuberollers());
 
 
   }

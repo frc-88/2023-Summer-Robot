@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class ButtonBox extends Joystick {
 	
     private static int INTAKE = 10;
+    private static int HANDOFF = 8;
     private static int OUTGEST = 18;
+    private static int HAPPY = 13;
     private static int GRAB_FROM_SHELF = 20;
     private static int GRAB_FROM_CHUTE = 12;
     private static int SET_LOW = 11;
@@ -28,10 +30,12 @@ public class ButtonBox extends Joystick {
 		super(port);
 	}
 
+    public Trigger happyButton = new JoystickButton(this, HAPPY);
 	public Trigger intakeButton = new JoystickButton(this, INTAKE);
     public Trigger outgestButton = new JoystickButton(this, OUTGEST);
     public Trigger getFromShelfButton = new JoystickButton(this, GRAB_FROM_SHELF);
     public Trigger getFromChuteButton = new JoystickButton(this, GRAB_FROM_CHUTE);
+    public Trigger Handoff = new JoystickButton(this, HANDOFF);
     public Trigger setLow = new JoystickButton(this, SET_LOW);
     public Trigger setMiddle = new JoystickButton(this, SET_MIDDLE);
     public Trigger setHigh = new JoystickButton(this, SET_HIGH);    

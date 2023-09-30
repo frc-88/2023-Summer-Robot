@@ -16,6 +16,11 @@ public class Arm extends SubsystemBase {
   private final WPI_TalonFX m_ArmMainMain = new WPI_TalonFX(Constants.ARM_GEARBOX);
   private final WPI_TalonFX m_EndEffector = new WPI_TalonFX(Constants.END_EFFECTOR_PIVOT);
 
+  public Arm(){
+    m_ArmMainMain.configOpenloopRamp(1);
+    m_EndEffector.configOpenloopRamp(0.5);
+  }
+
   public CommandBase MoveArmForward() {
     return new RunCommand(() -> m_ArmMainMain.set(-0.5), this);
   }
@@ -29,11 +34,17 @@ public class Arm extends SubsystemBase {
   }
 
   public CommandBase MoveCuberollers() {
-    return new RunCommand(() -> m_Cuberoller.set(0.5), this);
+    return new RunCommand(() -> {
+      m_Coneroller.set(0.5);
+      m_Cuberoller.set(0.5);
+    }, this);
   }
 
   public CommandBase MoveConerollers() {
-    return new RunCommand(() -> m_Coneroller.set(0.5), this);
+    return new RunCommand(() -> {
+      m_Coneroller.set(0.5);
+      m_Cuberoller.set(-0.5);
+    }, this);
   }
 
   public CommandBase Stoprollers() {
@@ -43,23 +54,32 @@ public class Arm extends SubsystemBase {
     }, this);
   }
 
-  public CommandBase Score() {
+  public CommandBase ScoreCube() {
     return new RunCommand(() -> {
       m_Coneroller.set(-1);
       m_Cuberoller.set(-1);
+      System.out.println("Cube Cube Cube!");
+    }, this);
+  }
+
+  public CommandBase ScoreCone() {
+    return new RunCommand(() -> {
+      m_Coneroller.set(-1);
+      m_Cuberoller.set(1);
+      System.out.println("Cone Cone Cone!");
     }, this);
   }
 
   public CommandBase EndEffectorUp() {
     return new RunCommand(() -> {
       m_EndEffector.set(0.5);
-    });
+    }, this);
   }
 
   public CommandBase EndEffectorDown() {
     return new RunCommand(() -> {
       m_EndEffector.set(-0.5);
-    });
+    }, this);
   }
 
   public CommandBase EndEffectorStop() {
@@ -84,5 +104,7 @@ public class Arm extends SubsystemBase {
       m_EndEffector.setNeutralMode(NeutralMode.Brake);
       m_Coneroller.set(0);
       m_Cuberoller.set(0);
-  });}
+      m_EndEffector.set(0);
+      m_ArmMainMain.set(0);
+  }, this);}
 }
