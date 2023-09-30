@@ -19,11 +19,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoBalanceSimple;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Roller;
+import frc.robot.util.Arm.ArmStates;
 
 public class RobotContainer {
   private final SwerveDrive m_drive = new SwerveDrive();
   private final DriverController m_driverController = new FrskyDriverController(Constants.DRIVER_CONTROLLER_ID);
+  private final EndEffector m_EndEffector = new EndEffector();
   //private final Joystick m_Joystick = new Joystick(Constants.Joystick);
   private final Arm m_Arm = new Arm();
   AutoBalanceSimple autoBalanceCommand = new AutoBalanceSimple(m_drive);
@@ -47,7 +50,7 @@ public class RobotContainer {
 
   private void configureDefaultCommands() {
     m_drive.setDefaultCommand(m_drive.grantDriveCommandFactory(m_drive, m_driverController));
-    //m_Arm.setDefaultCommand(new ParallelCommandGroup(m_Arm.Stoprollers(), m_Arm.StopArm(), m_Arm.EndEffectorStop()));
+    m_Arm.setDefaultCommand(m_Arm.FreezeArm());
   }
 
 
@@ -63,10 +66,24 @@ public class RobotContainer {
   private void configureControllers() {
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch);
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate());
+
+    /* m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch)
+    .whileTrue(m_Arm.sendArmToState(ArmStates.getConeFromChute))
+    .whileTrue(m_EndEffector.grabConeFactory())
+    .onFalse(m_EndEffector.grabConeFactory().withTimeout(1));
+m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch.negate())
+    .whileTrue(m_Arm.sendArmToState(ArmStates.getCubeFromChute))
+    .whileTrue(m_EndEffector.grabCubeFactory())
+    .onFalse(m_EndEffector.grabCubeFactory().withTimeout(1)); */
+
+
   }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
+  
+
+
   
 }

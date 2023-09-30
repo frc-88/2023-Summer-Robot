@@ -22,7 +22,8 @@ public class EndEffector extends SubsystemBase {
 
     private final WPI_TalonFX m_Cuberoller = new WPI_TalonFX(Constants.CUBE_ROLLER);
     private final WPI_TalonFX m_Coneroller = new WPI_TalonFX(Constants.CONE_ROLLER);
-    private final WPI_TalonFX m_ArmMain = new WPI_TalonFX(Constants.ARM_GEARBOX);
+    private final WPI_TalonFX m_ArmMainMain = new WPI_TalonFX(Constants.ARM_GEARBOX);
+    private final EndEffector m_EndEffector = new EndEffector();
 
     // Cube
   private DoublePreferenceConstant innerRollerCubeIntakeSpeed = 
@@ -83,29 +84,40 @@ private boolean m_coneMode = false;
   private boolean m_isIntaking = false;
 
 
+  public EndEffector() {
+    m_ArmMainMain.setInverted(true);
+    m_ArmMainMain.overrideLimitSwitchesEnable(false);
+
+    StatorCurrentLimitConfiguration sclc = new StatorCurrentLimitConfiguration(true, 60, 60, .1);
+
+    m_Coneroller.configStatorCurrentLimit(sclc);
+    m_Cuberoller.configStatorCurrentLimit(sclc);
+
+  }
+
   public void armUp() {
     if (isArmUp()) {
-      m_ArmMain.set(armUpStallIntakeSpeed.getValue());
+      m_ArmMainMain.set(armUpStallIntakeSpeed.getValue());
     } else {
-      m_ArmMain.set(armUpMoveIntakeSpeed.getValue()); 
+      m_ArmMainMain.set(armUpMoveIntakeSpeed.getValue()); 
     }
    }
 
    public void armDown() {
     if (isArmDown()) {
-      m_ArmMain.set(armDownStallIntakeSpeed.getValue());
+      m_ArmMainMain.set(armDownStallIntakeSpeed.getValue());
     } else {
-     m_ArmMain.set(armDownMoveIntakeSpeed.getValue());
+     m_ArmMainMain.set(armDownMoveIntakeSpeed.getValue());
    }
     
   }
 
   public boolean isArmUp() {
-    return m_ArmMain.isRevLimitSwitchClosed() > 0;
+    return m_ArmMainMain.isRevLimitSwitchClosed() > 0;
   }
 
   public boolean isArmDown() {
-    return m_ArmMain.isFwdLimitSwitchClosed() > 0;
+    return m_ArmMainMain.isFwdLimitSwitchClosed() > 0;
   }
 
 public void intake() {
@@ -175,4 +187,6 @@ public void intake() {
   }
 
 
+
+  
 }

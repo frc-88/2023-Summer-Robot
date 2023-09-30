@@ -10,27 +10,25 @@ import frc.robot.util.preferenceconstants.DoublePreferenceConstant;
 public class ArmState {
     private final String m_name;
     private boolean m_isStow = false;
-    private final DoublePreferenceConstant m_shoulderAngle;
-    private final DoublePreferenceConstant m_elbowAngle;
-    private final DoublePreferenceConstant m_wristAngle;
+    private final DoublePreferenceConstant m_ArmMainAngle;
+    private final DoublePreferenceConstant m_effectorAngle;
     private final DoublePreferenceConstant m_acceleration;
     private List<ArmState> m_deployIntermediaries = new ArrayList<>();
     private List<ArmState> m_retractIntermediaries = new ArrayList<>();
     private DoublePreferenceConstant p_deployIntermediaryTolerance;
     private DoublePreferenceConstant p_retractIntermediaryTolerance;
 
-    public ArmState(String name, double shoulder, double elbow, double wrist, double acceleration) {
+    public ArmState(String name, double arm, double effector, double acceleration) {
         m_name = name;
 
-        m_shoulderAngle = new DoublePreferenceConstant("Arm/States/" + name + "/Shoulder Angle", shoulder);
-        m_elbowAngle = new DoublePreferenceConstant("Arm/States/" + name + "/Elbow Angle", elbow);
-        m_wristAngle = new DoublePreferenceConstant("Arm/States/" + name + "/Wrist Angle", wrist);
+        m_ArmMainAngle = new DoublePreferenceConstant("Arm/States/" + name + "/Arm Angle", arm);
+        m_effectorAngle = new DoublePreferenceConstant("Arm/States/" + name + "/Effector Angle", effector);
         m_acceleration = new DoublePreferenceConstant("Arm/States/" + name + "/Acceleration", acceleration);
     }
 
     public ArmState addDeployIntermediaries(int numIntermediaries) {
         for (int n = 1; n <= numIntermediaries; n++) {
-            m_deployIntermediaries.add(new ArmState(m_name + "/Deploy " + n, m_shoulderAngle.getValue(), m_elbowAngle.getValue(), m_wristAngle.getValue(), m_acceleration.getValue()));
+            m_deployIntermediaries.add(new ArmState(m_name + "/Deploy " + n, m_ArmMainAngle.getValue(), m_effectorAngle.getValue(), m_acceleration.getValue()));
         }
         p_deployIntermediaryTolerance = new DoublePreferenceConstant("Arm/States/" + m_name + "/Deploy Tolerance", 2);
         return this;
@@ -38,7 +36,7 @@ public class ArmState {
 
     public ArmState addRetractIntermediaries(int numIntermediaries) {
         for (int n = 1; n <= numIntermediaries; n++) {
-            m_retractIntermediaries.add(new ArmState(m_name + "/Retract " + n, m_shoulderAngle.getValue(), m_elbowAngle.getValue(), m_wristAngle.getValue(), m_acceleration.getValue()));
+            m_retractIntermediaries.add(new ArmState(m_name + "/Retract " + n, m_ArmMainAngle.getValue(), m_effectorAngle.getValue(), m_acceleration.getValue()));
         }
         p_retractIntermediaryTolerance = new DoublePreferenceConstant("Arm/States/" + m_name + "/Retract Tolerance", 2);
         return this;
@@ -58,15 +56,11 @@ public class ArmState {
     }
 
     public double getShoulderAngle() {
-        return m_shoulderAngle.getValue();
-    }
-
-    public double getElbowAngle() {
-        return m_elbowAngle.getValue();
+        return m_ArmMainAngle.getValue();
     }
 
     public double getWristAngle() {
-        return m_wristAngle.getValue();
+        return m_effectorAngle.getValue();
     }
 
     public double getAcceleration() {
@@ -91,6 +85,6 @@ public class ArmState {
 
     @Override
     public String toString() {
-        return m_name + " - Shoulder: " + m_shoulderAngle.getValue() + " - Elbow: " + m_elbowAngle.getValue() + " - Wrist: " + m_wristAngle.getValue();
+        return m_name + " - Arm: " + m_ArmMainAngle.getValue() + " - End Effector: " + m_effectorAngle.getValue();
     }
 }
