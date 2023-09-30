@@ -51,7 +51,7 @@ public class RobotContainer {
 
   private void configureDefaultCommands() {
     m_drive.setDefaultCommand(m_drive.grantDriveCommandFactory(m_drive, m_driverController));
-    //m_Arm.setDefaultCommand(new ParallelCommandGroup(m_Arm.Stoprollers(), m_Arm.StopArm(), m_Arm.EndEffectorStop()));
+    m_Arm.setDefaultCommand(m_Arm.FreezeArm());
   }
 
 
