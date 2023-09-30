@@ -37,6 +37,10 @@ public class RobotContainer {
     configureSmartDashboardButtons();
   }
 
+public void teleopInit() {
+m_Arm.FreezeArm().schedule();
+}
+
  /* /*  private void configureControllers() {
     new JoystickButton(m_Joystick, 10).and(new JoystickButton(m_Joystick, 17).negate()).whileTrue(m_Arm.MoveCuberollers());
     new JoystickButton(m_Joystick, 10).and(new JoystickButton(m_Joystick, 17)).whileTrue(m_Arm.MoveConerollers());
@@ -51,7 +55,7 @@ public class RobotContainer {
   private void configureDefaultCommands() {
     m_drive.setDefaultCommand(m_drive.grantDriveCommandFactory(m_drive, m_driverController));
     m_Arm.setDefaultCommand(m_Arm.stow());
-    m_Arm.setDefaultCommand(m_Roller.Stoprollers());
+    m_Roller.setDefaultCommand(m_Roller.Stoprollers());
     
   }
 

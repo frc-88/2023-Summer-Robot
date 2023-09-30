@@ -28,10 +28,10 @@ public class Arm extends SubsystemBase {
     m_EndEffector.setSelectedSensorPosition(0);
     m_ArmMainMain.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
     m_ArmMainMain.setSelectedSensorPosition(0);
-    m_EndEffector.configMotionCruiseVelocity(100);
-    m_EndEffector.configMotionAcceleration(100);
-    m_ArmMainMain.configMotionAcceleration(100);
-    m_ArmMainMain.configMotionCruiseVelocity(100);
+    m_EndEffector.configMotionCruiseVelocity(9600);
+    m_EndEffector.configMotionAcceleration(9600);
+    m_ArmMainMain.configMotionAcceleration(9600);
+    m_ArmMainMain.configMotionCruiseVelocity(9600);
     m_EndEffector.config_kD(0, 0.5);
     m_EndEffector.config_kP(0, 1);
     m_EndEffector.config_kF(0, 0.057);
@@ -92,7 +92,7 @@ public class Arm extends SubsystemBase {
 
   public CommandBase stow() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_EndEffector.set(ControlMode.MotionMagic, 49489);
       m_ArmMainMain.set(ControlMode.MotionMagic, 0);
     }, this);
   }
@@ -101,6 +101,10 @@ public void periodic() {
   SmartDashboard.putNumber("End Effector Encoder", m_EndEffector.getSelectedSensorPosition());
   SmartDashboard.putNumber("Arm Positon", m_ArmMainMain.getSelectedSensorPosition());
   SmartDashboard.putBoolean("Coast Mode", m_coastMode.get());
+  if (m_coastMode.get()) {
+    BrakeMode();
+  } else {
+    CoastMode();
+  }
 }
-
 }
