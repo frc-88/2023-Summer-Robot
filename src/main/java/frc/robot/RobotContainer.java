@@ -71,11 +71,11 @@ public class RobotContainer {
     /* m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch)
     .whileTrue(m_Arm.sendArmToState(ArmStates.getConeFromChute))
     .whileTrue(m_EndEffector.grabConeFactory())
-    .onFalse(m_grabber.grabConeFactory().withTimeout(1));
+    .onFalse(m_EndEffector.grabConeFactory().withTimeout(1));
 m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch.negate())
-    .whileTrue(m_arm.sendArmToState(ArmStates.getCubeFromChute))
-    .whileTrue(m_grabber.grabCubeFactory())
-    .onFalse(m_grabber.grabCubeFactory().withTimeout(1)); */
+    .whileTrue(m_Arm.sendArmToState(ArmStates.getCubeFromChute))
+    .whileTrue(m_EndEffector.grabCubeFactory())
+    .onFalse(m_EndEffector.grabCubeFactory().withTimeout(1)); */
 
 
   }
