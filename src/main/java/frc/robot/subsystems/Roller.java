@@ -12,7 +12,7 @@ public class Roller extends SubsystemBase {
     
     private final WPI_TalonFX m_Cuberoller = new WPI_TalonFX(Constants.CUBE_ROLLER);
     private final WPI_TalonFX m_Coneroller = new WPI_TalonFX(Constants.CONE_ROLLER);
-    private final WPI_TalonFX m_ArmMain = new WPI_TalonFX(Constants.ARM_GEARBOX);
+    private final WPI_TalonFX m_ArmMainMain = new WPI_TalonFX(Constants.ARM_GEARBOX);
     private final WPI_TalonFX m_EndEffector = new WPI_TalonFX(Constants.END_EFFECTOR_PIVOT);
 
     public CommandBase MoveCuberollers() {

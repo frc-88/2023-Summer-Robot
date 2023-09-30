@@ -19,11 +19,14 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutoBalanceSimple;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.EndEffector;
 import frc.robot.subsystems.Roller;
+import frc.robot.util.Arm.ArmStates;
 
 public class RobotContainer {
   private final SwerveDrive m_drive = new SwerveDrive();
   private final DriverController m_driverController = new FrskyDriverController(Constants.DRIVER_CONTROLLER_ID);
+  private final EndEffector m_EndEffector = new EndEffector();
   //private final Joystick m_Joystick = new Joystick(Constants.Joystick);
   private final Arm m_Arm = new Arm();
   private final ButtonBox m_buttonBox = new ButtonBox(Constants.BUTTON_BOX_ID);
@@ -64,10 +67,24 @@ public class RobotContainer {
   private void configureControllers() {
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch);
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate());
+
+    /* m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch)
+    .whileTrue(m_Arm.sendArmToState(ArmStates.getConeFromChute))
+    .whileTrue(m_EndEffector.grabConeFactory())
+    .onFalse(m_grabber.grabConeFactory().withTimeout(1));
+m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch.negate())
+    .whileTrue(m_arm.sendArmToState(ArmStates.getCubeFromChute))
+    .whileTrue(m_grabber.grabCubeFactory())
+    .onFalse(m_grabber.grabCubeFactory().withTimeout(1)); */
+
+
   }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
+  
+
+
   
 }
