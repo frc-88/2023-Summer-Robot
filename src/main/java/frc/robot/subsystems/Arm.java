@@ -97,6 +97,13 @@ public class Arm extends SubsystemBase {
     }, this);
   }
 
+  public CommandBase GrabCone() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 135345);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 11669);
+    }, this);
+  }
+
 public void periodic() {
   SmartDashboard.putNumber("End Effector Encoder", m_EndEffector.getSelectedSensorPosition());
   SmartDashboard.putNumber("Arm Positon", m_ArmMainMain.getSelectedSensorPosition());

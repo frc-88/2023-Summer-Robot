@@ -86,7 +86,7 @@ m_Arm.FreezeArm().schedule();
 
     //INTAKE
     m_buttonBox.intakeButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch)
-    .whileTrue(m_Roller.MoveConerollers());
+    .whileTrue(m_Roller.MoveConerollers()).whileTrue(m_Arm.GrabCone());
     m_buttonBox.intakeButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate())
     .whileTrue(m_Roller.MoveCuberollers());
 
