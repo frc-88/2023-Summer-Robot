@@ -3,10 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.sensors.CANCoder;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -102,6 +99,26 @@ public class Arm extends SubsystemBase {
       m_EndEffector.set(ControlMode.MotionMagic, 135345);
       m_ArmMainMain.set(ControlMode.MotionMagic, 11669);
     }, this);
+  }
+
+  public boolean isShoulderReady() {
+    if (-1000 <= m_ArmMainMain.getSelectedSensorPosition() && 
+    m_ArmMainMain.getSelectedSensorPosition() <= 1000) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  public boolean isEffectorReady() {
+    if (48489 <= m_EndEffector.getSelectedSensorPosition() 
+    && m_EndEffector.getSelectedSensorPosition() <= 50489) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
 public void periodic() {
