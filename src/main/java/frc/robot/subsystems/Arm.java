@@ -103,6 +103,68 @@ public class Arm extends SubsystemBase {
       m_ArmMainMain.set(ControlMode.MotionMagic, 11669);
     }, this);
   }
+    public CommandBase GrabCube() {
+      return new RunCommand(() -> {
+        m_EndEffector.set(ControlMode.MotionMagic, 0);
+        m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+      }, this);
+  }
+
+  public CommandBase ScoreConeLow() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+    }, this);
+  }
+
+  public CommandBase ScoreConeMid() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+    }, this);
+  }
+
+  public CommandBase ScoreConeHigh() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+    }, this);
+  }
+
+  public CommandBase ScoreCubeLow() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+    }, this);
+  }
+
+  public CommandBase ScoreCubeMid() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+    }, this);
+  }
+
+  public CommandBase ScoreCubeHigh() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+    }, this);
+  }
+
+  public CommandBase GrabChuteCone() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+    }, this);
+  }
+
+  public CommandBase GrabChuteCube() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+    }, this);
+  }
 
 public void periodic() {
   SmartDashboard.putNumber("End Effector Encoder", m_EndEffector.getSelectedSensorPosition());

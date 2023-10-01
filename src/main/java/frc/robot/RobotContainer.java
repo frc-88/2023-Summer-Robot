@@ -70,6 +70,31 @@ m_Arm.FreezeArm().schedule();
 
 
   private void configureControllers() {
+    
+    //LOW
+    m_buttonBox.setLow.and(m_buttonBox.gamepieceSwitch)
+    .whileTrue(m_Arm.ScoreConeLow()).whileTrue(m_Roller.ScoreCone());
+    m_buttonBox.setLow.and(m_buttonBox.gamepieceSwitch.negate())
+    .whileTrue(m_Arm.ScoreCubeLow()).whileTrue(m_Roller.ScoreCube());
+
+    //MID
+    m_buttonBox.setMiddle.and(m_buttonBox.gamepieceSwitch)
+    .whileTrue(m_Arm.ScoreConeMid()).whileTrue(m_Roller.ScoreCone());
+    m_buttonBox.setMiddle.and(m_buttonBox.gamepieceSwitch.negate())
+    .whileTrue(m_Arm.ScoreCubeMid()).whileTrue(m_Roller.ScoreCube());
+
+    //HIGH
+    m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
+    .whileTrue(m_Arm.ScoreConeHigh()).whileTrue(m_Roller.ScoreCone());
+    m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch.negate())
+    .whileTrue(m_Arm.ScoreCubeHigh()).whileTrue(m_Roller.ScoreCube());
+
+    //GRAB FROM CHUTE
+    m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
+    .whileTrue(m_Arm.GrabChuteCone()).whileTrue(m_Arm.GrabCone());
+    m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch.negate())
+    .whileTrue(m_Arm.GrabChuteCube()).whileTrue(m_Arm.GrabCube());
+
     //SCORE
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch)
     .whileTrue(m_Roller.ScoreCone());
@@ -80,15 +105,11 @@ m_Arm.FreezeArm().schedule();
     m_buttonBox.indicateMid.whileTrue(m_Arm.EndEffectorUp());
     m_buttonBox.indicateHigh.whileTrue(m_Arm.EndEffectorDown());
 
-    //ARM ROTATE
-    m_buttonBox.Handoff.whileTrue(m_Arm.MoveArmBack());
-    m_buttonBox.getFromChuteButton.whileTrue(m_Arm.MoveArmForward());
-
     //INTAKE
     m_buttonBox.intakeButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch)
     .whileTrue(m_Roller.MoveConerollers()).whileTrue(m_Arm.GrabCone());
     m_buttonBox.intakeButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate())
-    .whileTrue(m_Roller.MoveCuberollers());
+    .whileTrue(m_Roller.MoveCuberollers()).whileTrue(m_Arm.GrabCube()); 
 
 
   }
