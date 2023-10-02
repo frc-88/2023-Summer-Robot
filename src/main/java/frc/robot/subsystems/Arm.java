@@ -25,10 +25,10 @@ public class Arm extends SubsystemBase {
     m_EndEffector.setSelectedSensorPosition(0);
     m_ArmMainMain.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
     m_ArmMainMain.setSelectedSensorPosition(0);
-    m_EndEffector.configMotionCruiseVelocity(9600);
-    m_EndEffector.configMotionAcceleration(9600);
-    m_ArmMainMain.configMotionAcceleration(9600);
-    m_ArmMainMain.configMotionCruiseVelocity(9600);
+    m_EndEffector.configMotionCruiseVelocity(15400);
+    m_EndEffector.configMotionAcceleration(15400);
+    m_ArmMainMain.configMotionAcceleration(15400);
+    m_ArmMainMain.configMotionCruiseVelocity(15400);
     m_EndEffector.config_kD(0, 0.5);
     m_EndEffector.config_kP(0, 1);
     m_EndEffector.config_kF(0, 0.057);
