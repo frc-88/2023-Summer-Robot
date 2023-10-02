@@ -18,7 +18,7 @@ public class Arm extends SubsystemBase {
   private final WPI_TalonFX m_EndEffector = new WPI_TalonFX(Constants.END_EFFECTOR_PIVOT);
   private final DigitalInput m_coastMode = new DigitalInput(0);
 
-  public Arm(){
+  public Arm() {
     m_ArmMainMain.configOpenloopRamp(1);
     m_EndEffector.configOpenloopRamp(0.5);
     m_EndEffector.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
@@ -38,8 +38,6 @@ public class Arm extends SubsystemBase {
     m_ArmMainMain.setNeutralMode(NeutralMode.Brake);
     m_EndEffector.setNeutralMode(NeutralMode.Brake);
   }
-
-
 
   public CommandBase MoveArmForward() {
     return new RunCommand(() -> m_ArmMainMain.set(-0.5), this);
@@ -85,7 +83,8 @@ public class Arm extends SubsystemBase {
     return new InstantCommand(() -> {
       m_EndEffector.set(0);
       m_ArmMainMain.set(0);
-  }, this);}
+    }, this);
+  }
 
   public CommandBase stow() {
     return new RunCommand(() -> {
@@ -100,11 +99,12 @@ public class Arm extends SubsystemBase {
       m_ArmMainMain.set(ControlMode.MotionMagic, 11669);
     }, this);
   }
-    public CommandBase GrabCube() {
-      return new RunCommand(() -> {
-        m_EndEffector.set(ControlMode.MotionMagic, 0);
-        m_ArmMainMain.set(ControlMode.MotionMagic, 0);
-      }, this);
+
+  public CommandBase GrabCube() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+    }, this);
   }
 
   public CommandBase ScoreConeLow() {
@@ -163,34 +163,36 @@ public class Arm extends SubsystemBase {
     }, this);
   }
 
+  public boolean areAllCANDevicesPresent() {
+    return m_ArmMainMain.getBusVoltage() > 6 && m_EndEffector.getBusVoltage() > 6;
+  }
+
   public boolean isShoulderReady() {
-    if (-1000 <= m_ArmMainMain.getSelectedSensorPosition() && 
-    m_ArmMainMain.getSelectedSensorPosition() <= 1000) {
+    if (-1000 <= m_ArmMainMain.getSelectedSensorPosition() &&
+        m_ArmMainMain.getSelectedSensorPosition() <= 1000) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
 
   public boolean isEffectorReady() {
-    if (48489 <= m_EndEffector.getSelectedSensorPosition() 
-    && m_EndEffector.getSelectedSensorPosition() <= 50489) {
+    if (48489 <= m_EndEffector.getSelectedSensorPosition()
+        && m_EndEffector.getSelectedSensorPosition() <= 50489) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
 
-public void periodic() {
-  SmartDashboard.putNumber("End Effector Encoder", m_EndEffector.getSelectedSensorPosition());
-  SmartDashboard.putNumber("Arm Positon", m_ArmMainMain.getSelectedSensorPosition());
-  SmartDashboard.putBoolean("Coast Mode", m_coastMode.get());
-  if (m_coastMode.get()) {
-    BrakeMode();
-  } else {
-    CoastMode();
+  public void periodic() {
+    SmartDashboard.putNumber("End Effector Encoder", m_EndEffector.getSelectedSensorPosition());
+    SmartDashboard.putNumber("Arm Positon", m_ArmMainMain.getSelectedSensorPosition());
+    SmartDashboard.putBoolean("Coast Mode", m_coastMode.get());
+    if (m_coastMode.get()) {
+      BrakeMode();
+    } else {
+      CoastMode();
+    }
   }
-}
 }
