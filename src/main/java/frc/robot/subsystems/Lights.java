@@ -47,6 +47,7 @@ public class Lights extends SubsystemBase {
 
     private SwerveDrive m_swerve;
     private Arm m_arm;
+    private Roller m_Roller;
     private Supplier<String> m_autoName;
 
     public enum AnimationTypes {
@@ -116,13 +117,13 @@ public class Lights extends SubsystemBase {
         m_setAnim = true;
     }
 
-    public void stars(int r, int g, int b) {
+    public void twinklyStars(int r, int g, int b) {
         m_toAnimate = new TwinkleAnimation(r, g, b, 0, 0.2, numLEDs.getValue(), TwinklePercent.Percent42, 0);
         m_setAnim = true;
     }
 
     public void fireThingIDK() {
-        m_toAnimate = new FireAnimation(1, 0.2, numLEDs.getValue(), 0.2, 0.2, m_animDirection, 0)
+        m_toAnimate = new FireAnimation(1, 0.2, numLEDs.getValue(), 0.2, 0.2, m_animDirection, 0);
         m_setAnim = true;
     }
 
@@ -135,21 +136,31 @@ public class Lights extends SubsystemBase {
         return a.getTranslation().getDistance(b.getTranslation()) < m_acceptableDifference;
     }
 
+    public boolean didSomethingBreak() {
+        return m_isFaulted;
+    }
+
     public boolean areWeRed() {
         if (DriverStation.getAlliance() == Alliance.Red) {
             return true;
+        } else {
+            return false;
         }
     }
 
     public boolean isMatchOver() {
         if (DriverStation.getMatchTime() == 0 && !DriverStation.isAutonomous()) {
             return true;
+        } else {
+            return false;
         }
     }
 
     public boolean areWeBlue() {
         if (DriverStation.getAlliance() == Alliance.Blue) {
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -158,6 +169,25 @@ public class Lights extends SubsystemBase {
         // If it does, then something is wrong.
         if (DriverStation.getAlliance() == Alliance.Invalid) {
             return true;
+        } else {
+            return false;
+        }
+    }
+
+    double m_previousMatchTime = 0;
+
+    boolean m_isFaulted = false;
+
+    public void checkForFault() {
+        double m_currentMatchTime = DriverStation.getMatchTime();
+        if (!DriverStation.isDisabled()) {
+            m_previousMatchTime = m_currentMatchTime;
+        } else {
+            if (m_previousMatchTime != 0 && DriverStation.isDisabled()) {
+                m_isFaulted = true;
+            } else {
+                m_isFaulted = false;
+            }
         }
     }
 
@@ -173,58 +203,34 @@ public class Lights extends SubsystemBase {
                     }
                     break;
                 case 1:
-                    larsonColor(255, 255, 0);
-                    if (m_arm.isShoulderReady() && counter++ > 75) {
+                    larsonColor(255, 128, 0);
+                    if (m_arm.isShoulderReady() && m_arm.areAllCANDevicesPresent() && counter++ > 75) {
                         m_state++;
                         counter = 0;
                     }
                     break;
                 case 2:
-                    larsonColor(0, 255, 0);
-                    if (m_arm.isEffectorReady() && counter++ > 75) {
+                    larsonColor(255, 255, 0);
+                    if (m_arm.isEffectorReady() && m_Roller.areAllCANDevicesPresent() && counter++ > 75) {
                         m_state++;
                         counter = 0;
                     }
                     break;
                 case 3:
-                    larsonColor(0, 255, 255);
-                    if ((m_intake.isArmDown() || DriverStation.isFMSAttached() || !m_autoName.get().equals("Wait"))
-                            && counter++ > 25) {
-                        m_state++;
-                        counter = 0;
-                    }
-                    break;
-                case 4:
-                    larsonColor(0, 255, 255);
-                    if ((m_intake.hasGamePiece() || DriverStation.isFMSAttached() || !m_autoName.get().equals("Wait"))
-                            && counter++ > 25) {
-                        m_state++;
-                        counter = 0;
-                    }
-                    break;
-                case 5:
                     larsonColor(0, 0, 255);
-                    if (m_coprocessor.isConnected() && m_coprocessor.getBotPose() != null && counter++ > 75) {
-                        m_state++;
-                        counter = 0;
-                    }
-                    break;
-
-                case 6:
-                    larsonColor(255, 0, 255);
                     if (DriverStation.isDSAttached()) {
                         m_state++;
                         counter = 0;
                     }
                     break;
-                case 7:
+                case 4:
                     larsonColor(255, 255, 255);
                     if (!m_autoName.get().equals("Wait") && counter++ > 75) {
                         m_state++;
                         counter = 0;
                     }
                     break;
-                case 8:
+                case 5:
                     rainbow();
                     if (counter++ > 100) {
                         m_state++;
@@ -238,6 +244,19 @@ public class Lights extends SubsystemBase {
         }
 
         if (isMatchOver()) {
+            if (areWeBlue()) {
+                twinklyStars(0, 0, 128);
+            }
+            if (areWeRed()) {
+                twinklyStars(128, 0, 0);
+            }
+            if (IDKWHATWEAREOHNO()) {
+                twinklyStars(128, 128, 128);
+            }
+
+        }
+
+        if (didSomethingBreak()) {
             fireThingIDK();
         }
 
@@ -259,6 +278,7 @@ public class Lights extends SubsystemBase {
             m_setAnim = false;
         }
         m_candle.animate(m_toAnimate, 0);
+
     }
 
     @Override
