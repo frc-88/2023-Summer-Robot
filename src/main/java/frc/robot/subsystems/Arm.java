@@ -103,7 +103,7 @@ public class Arm extends SubsystemBase {
 
   public CommandBase GrabCube() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 0);
+      m_EndEffector.set(ControlMode.MotionMagic, 2305);
       m_ArmMainMain.set(ControlMode.MotionMagic, 0);
     }, this);
   }
@@ -138,8 +138,8 @@ public class Arm extends SubsystemBase {
 
   public CommandBase ScoreCubeMid() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 0);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+      m_EndEffector.set(ControlMode.MotionMagic, 40459);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 30867);
     }, this);
   }
 
