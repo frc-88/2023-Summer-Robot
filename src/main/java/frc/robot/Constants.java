@@ -61,7 +61,7 @@ public final class Constants {
 
      // Drive Train
      public static final int CHARGE_STATION_LEVEL = 2;
-     public static final int CANDLE_ID = 2;
+     public static final int CANDLE_ID = 6;
 
      // Trajectory
      public static final double MAX_TRAJ_VELOCITY = 4;
