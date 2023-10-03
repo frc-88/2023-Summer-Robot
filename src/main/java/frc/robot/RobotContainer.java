@@ -85,21 +85,21 @@ public class RobotContainer {
 
     // LOW
     m_buttonBox.setLow.and(m_buttonBox.gamepieceSwitch)
-        .whileTrue(m_Arm.ScoreConeLow()).whileTrue(m_Roller.ScoreCone());
+        .whileTrue(m_Arm.ScoreConeLow());
     m_buttonBox.setLow.and(m_buttonBox.gamepieceSwitch.negate())
-        .whileTrue(m_Arm.ScoreCubeLow()).whileTrue(m_Roller.ScoreCube());
+        .whileTrue(m_Arm.ScoreCubeLow());
 
     // MID
     m_buttonBox.setMiddle.and(m_buttonBox.gamepieceSwitch)
-        .whileTrue(m_Arm.ScoreConeMid()).whileTrue(m_Roller.ScoreCone());
+        .whileTrue(m_Arm.ScoreConeMid());
     m_buttonBox.setMiddle.and(m_buttonBox.gamepieceSwitch.negate())
-        .whileTrue(m_Arm.ScoreCubeMid()).whileTrue(m_Roller.ScoreCube());
+        .whileTrue(m_Arm.ScoreCubeMid());
 
     // HIGH
     m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
-        .whileTrue(m_Arm.ScoreConeHigh()).whileTrue(m_Roller.ScoreCone());
+        .whileTrue(m_Arm.ScoreConeHigh());
     m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch.negate())
-        .whileTrue(m_Arm.ScoreCubeHigh()).whileTrue(m_Roller.ScoreCube());
+        .whileTrue(m_Arm.ScoreCubeHigh());
 
     // GRAB FROM CHUTE
     m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
