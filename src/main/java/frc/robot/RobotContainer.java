@@ -103,9 +103,9 @@ public class RobotContainer {
 
     // GRAB FROM CHUTE
     m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
-        .whileTrue(m_Arm.GrabChuteCone()).whileTrue(m_Arm.GrabCone());
+        .whileTrue(m_Arm.GrabChuteCone()).whileTrue(m_Roller.MoveConerollers());
     m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch.negate())
-        .whileTrue(m_Arm.GrabChuteCube()).whileTrue(m_Arm.GrabCube());
+        .whileTrue(m_Arm.GrabChuteCube()).whileTrue(m_Roller.MoveCuberollers());
 
     // SCORE
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch)

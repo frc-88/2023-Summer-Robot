@@ -96,8 +96,8 @@ public class Arm extends SubsystemBase {
 
   public CommandBase GrabCone() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 135345);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 11669);
+      m_EndEffector.set(ControlMode.MotionMagic, -32429);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 142978);
     }, this);
   }
 

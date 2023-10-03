@@ -15,15 +15,15 @@ public class Roller extends SubsystemBase {
 
   public CommandBase MoveCuberollers() {
     return new RunCommand(() -> {
-      m_Coneroller.set(0.5);
-      m_Cuberoller.set(0.5);
+      m_Coneroller.set(0.75);
+      m_Cuberoller.set(0.75);
     }, this);
   }
 
   public CommandBase MoveConerollers() {
     return new RunCommand(() -> {
-      m_Coneroller.set(0.5);
-      m_Cuberoller.set(-0.5);
+      m_Coneroller.set(0.75);
+      m_Cuberoller.set(-0.75);
     }, this);
   }
 
