@@ -103,8 +103,12 @@ public class Arm extends SubsystemBase {
 
   public CommandBase GrabCube() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 2305);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+      m_EndEffector.configMotionCruiseVelocity(28400);
+      m_EndEffector.configMotionAcceleration(28400);
+      m_ArmMainMain.configMotionAcceleration(15400);
+      m_ArmMainMain.configMotionCruiseVelocity(15400);
+      m_EndEffector.set(ControlMode.MotionMagic, -158551);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 120630);
     }, this);
   }
 
