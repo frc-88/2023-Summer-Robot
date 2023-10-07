@@ -96,10 +96,10 @@ public class RobotContainer {
         .whileTrue(m_Arm.ScoreCubeMid());
 
     // HIGH
-    m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
+    /* m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
         .whileTrue(m_Arm.ScoreConeHigh());
     m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch.negate())
-        .whileTrue(m_Arm.ScoreCubeHigh());
+        .whileTrue(m_Arm.ScoreCubeHigh()); */
 
     // GRAB FROM CHUTE
     m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
