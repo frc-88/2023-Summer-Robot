@@ -96,15 +96,19 @@ public class Arm extends SubsystemBase {
 
   public CommandBase GrabCone() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 135345);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 11669);
+      m_EndEffector.set(ControlMode.MotionMagic, -32429);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 142978);
     }, this);
   }
 
   public CommandBase GrabCube() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 0);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+      m_EndEffector.configMotionCruiseVelocity(28400);
+      m_EndEffector.configMotionAcceleration(28400);
+      m_ArmMainMain.configMotionAcceleration(15400);
+      m_ArmMainMain.configMotionCruiseVelocity(15400);
+      m_EndEffector.set(ControlMode.MotionMagic, -158551);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 120630);
     }, this);
   }
 
@@ -117,17 +121,17 @@ public class Arm extends SubsystemBase {
 
   public CommandBase ScoreConeMid() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 0);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+      m_EndEffector.set(ControlMode.MotionMagic, 23022);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 66177);
     }, this);
   }
 
-  public CommandBase ScoreConeHigh() {
+  /* public CommandBase ScoreConeHigh() {
     return new RunCommand(() -> {
       m_EndEffector.set(ControlMode.MotionMagic, 0);
       m_ArmMainMain.set(ControlMode.MotionMagic, 0);
     }, this);
-  }
+  } */
 
   public CommandBase ScoreCubeLow() {
     return new RunCommand(() -> {
@@ -138,18 +142,18 @@ public class Arm extends SubsystemBase {
 
   public CommandBase ScoreCubeMid() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 0);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+      m_EndEffector.set(ControlMode.MotionMagic, 40459);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 30867);
     }, this);
   }
 
-  public CommandBase ScoreCubeHigh() {
+ /*  public CommandBase ScoreCubeHigh() {
     return new RunCommand(() -> {
       m_EndEffector.set(ControlMode.MotionMagic, 0);
       m_ArmMainMain.set(ControlMode.MotionMagic, 0);
     }, this);
   }
-
+ */
   public CommandBase GrabChuteCone() {
     return new RunCommand(() -> {
       m_EndEffector.set(ControlMode.MotionMagic, 0);

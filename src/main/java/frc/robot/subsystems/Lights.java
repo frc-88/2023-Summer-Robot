@@ -71,7 +71,7 @@ public class Lights extends SubsystemBase {
         CANdleConfiguration configAll = new CANdleConfiguration();
         configAll.statusLedOffWhenActive = false;
         configAll.disableWhenLOS = false;
-        configAll.stripType = LEDStripType.GRB;
+        configAll.stripType = LEDStripType.BRG;
         configAll.brightnessScalar = 1.0;
         configAll.vBatOutputMode = VBatOutputMode.On;
         m_candle.configAllSettings(configAll, 100);
@@ -261,18 +261,18 @@ public class Lights extends SubsystemBase {
         //     fireThingIDK();
         // }
 
-        if (Math.abs(SmartDashboard.getNumber("NavX.pitch", 0.0)) > dangerAngle.getValue()
-                || Math.abs(SmartDashboard.getNumber("NavX.roll", 0.0)) > dangerAngle.getValue()) {
-            // if (m_lastAnimation == null) {
-            // m_lastAnimation = m_toAnimate;
-            // }
-            // strobe(255, 0, 0);
-            // m_strobe = m_toAnimate;
-        } else if (m_toAnimate.equals(m_strobe) && m_lastAnimation != null) {
-            m_toAnimate = m_lastAnimation;
-            m_setAnim = true;
-            m_lastAnimation = null;
-        }
+        // if (Math.abs(SmartDashboard.getNumber("NavX.pitch", 0.0)) > dangerAngle.getValue()
+        //         || Math.abs(SmartDashboard.getNumber("NavX.roll", 0.0)) > dangerAngle.getValue()) {
+        //     // if (m_lastAnimation == null) {
+        //     // m_lastAnimation = m_toAnimate;
+        //     // }
+        //     // strobe(255, 0, 0);
+        //     // m_strobe = m_toAnimate;
+        // } else if (m_toAnimate.equals(m_strobe) && m_lastAnimation != null) {
+        //     m_toAnimate = m_lastAnimation;
+        //     m_setAnim = true;
+        //     m_lastAnimation = null;
+        // }
 
         if (m_setAnim) {
             m_candle.clearAnimation(0);
