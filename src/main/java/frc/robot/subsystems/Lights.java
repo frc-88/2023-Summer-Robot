@@ -69,11 +69,11 @@ public class Lights extends SubsystemBase {
         m_arm = arm;
         m_autoName = autoName;
         CANdleConfiguration configAll = new CANdleConfiguration();
-        configAll.statusLedOffWhenActive = true;
+        configAll.statusLedOffWhenActive = false;
         configAll.disableWhenLOS = false;
         configAll.stripType = LEDStripType.GRB;
         configAll.brightnessScalar = 1.0;
-        configAll.vBatOutputMode = VBatOutputMode.Modulated;
+        configAll.vBatOutputMode = VBatOutputMode.On;
         m_candle.configAllSettings(configAll, 100);
     }
 
@@ -222,6 +222,7 @@ public class Lights extends SubsystemBase {
                         m_state++;
                         counter = 0;
                     }
+                    System.out.println("waiting for DriverStation");
                     break;
                 case 4:
                     larsonColor(255, 255, 255);
@@ -243,22 +244,22 @@ public class Lights extends SubsystemBase {
             }
         }
 
-        if (isMatchOver()) {
-            if (areWeBlue()) {
-                twinklyStars(0, 0, 128);
-            }
-            if (areWeRed()) {
-                twinklyStars(128, 0, 0);
-            }
-            if (IDKWHATWEAREOHNO()) {
-                twinklyStars(128, 128, 128);
-            }
+        // if (isMatchOver()) {
+        //     if (areWeBlue()) {
+        //         twinklyStars(0, 0, 128);
+        //     }
+        //     if (areWeRed()) {
+        //         twinklyStars(128, 0, 0);
+        //     }
+        //     if (IDKWHATWEAREOHNO()) {
+        //         twinklyStars(128, 128, 128);
+        //     }
 
-        }
+        // }
 
-        if (didSomethingBreak()) {
-            fireThingIDK();
-        }
+        // if (didSomethingBreak()) {
+        //     fireThingIDK();
+        // }
 
         if (Math.abs(SmartDashboard.getNumber("NavX.pitch", 0.0)) > dangerAngle.getValue()
                 || Math.abs(SmartDashboard.getNumber("NavX.roll", 0.0)) > dangerAngle.getValue()) {
