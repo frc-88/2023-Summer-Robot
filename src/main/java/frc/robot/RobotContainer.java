@@ -78,7 +78,6 @@ public class RobotContainer {
     SmartDashboard.putData("Reset Yaw", m_drive.resetYawCommandFactory());
     SmartDashboard.putData("Field Drive", m_drive.fieldOrientedDriveCommandFactory(m_drive, m_driverController));
     SmartDashboard.putData("Grant Drive", m_drive.grantDriveCommandFactory(m_drive, m_driverController));
-
     SmartDashboard.putData(m_drive);
   }
 
@@ -151,8 +150,7 @@ public class RobotContainer {
   // m_autoCommandName = "Engage";
   // }
 
-  if (m_buttonBox.Handoff.getAsBoolean() &&
-  !m_autoCommandName.equals("charge1MobilityBalance")) {
+  if (m_buttonBox.Handoff.getAsBoolean() && !m_autoCommandName.equals("charge1MobilityBalance")) {
   m_autoCommand = Autonomous.charge1MobilityBalance(m_drive, m_Arm, m_Roller);
   m_autoCommandName = "charge1MobilityBalance";
   }
