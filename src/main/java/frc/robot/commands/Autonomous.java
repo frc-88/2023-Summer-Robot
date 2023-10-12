@@ -43,69 +43,69 @@ public class Autonomous {
 
     // Center
 
-    public static ConditionalCommand center2HalfBalance(SwerveDrive drive, Arm arm, Roller roller, Lights candle, BotPoseProvider source) {
-        return new ConditionalCommand(center2HalfBalance("Red", drive, arm, roller, candle, source), 
-            center2HalfBalance("Blue", drive, arm, roller, candle, source),
+    public static ConditionalCommand center2HalfBalance(SwerveDrive drive, Arm arm, Roller roller) {
+        return new ConditionalCommand(center2HalfBalance("Red", drive, arm, roller), 
+            center2HalfBalance("Blue", drive, arm, roller),
             () -> {return DriverStation.getAlliance() == Alliance.Red;});
     }
 
-    public static ConditionalCommand center3(SwerveDrive drive, Arm arm, Roller roller, Lights candle, BotPoseProvider source) {
-        return new ConditionalCommand(center3("Red", drive, arm, roller, candle, source), 
-            center3("Blue", drive, arm, roller, candle, source),
+    public static ConditionalCommand center3(SwerveDrive drive, Arm arm, Roller roller) {
+        return new ConditionalCommand(center3("Red", drive, arm, roller), 
+            center3("Blue", drive, arm, roller),
             () -> {return DriverStation.getAlliance() == Alliance.Red;});
     }
 
-    public static ConditionalCommand center3Half(SwerveDrive drive, Arm arm, Roller roller, Lights candle, BotPoseProvider source) {
-        return new ConditionalCommand(center3Half("Red", drive, arm, roller, candle, source), 
-            center3Half("Blue", drive, arm, roller, candle, source),
+    public static ConditionalCommand center3Half(SwerveDrive drive, Arm arm, Roller roller) {
+        return new ConditionalCommand(center3Half("Red", drive, arm, roller), 
+            center3Half("Blue", drive, arm, roller),
             () -> {return DriverStation.getAlliance() == Alliance.Red;});
     }
 
-    public static ConditionalCommand center3Balance(SwerveDrive drive, Arm arm, Roller roller, Lights candle, BotPoseProvider source) {
-        return new ConditionalCommand(center3Balance("Red", drive, arm, roller, candle, source), 
-            center3Balance("Blue", drive, arm, roller, candle, source),
+    public static ConditionalCommand center3Balance(SwerveDrive drive, Arm arm, Roller roller) {
+        return new ConditionalCommand(center3Balance("Red", drive, arm, roller), 
+            center3Balance("Blue", drive, arm, roller),
             () -> {return DriverStation.getAlliance() == Alliance.Red;});
     }
 
     // Charge Station
 
-    public static ConditionalCommand engage(SwerveDrive drive, Arm arm, Roller roller, BotPoseProvider source) {
-        return new ConditionalCommand(engage("Red",drive,arm,roller,source), 
+    public static ConditionalCommand engage(SwerveDrive drive, Arm arm, Roller roller) {
+        return new ConditionalCommand(engage("Red", drive, arm, roller), 
             engage("Blue",drive,arm, roller,source),
             () -> {return DriverStation.getAlliance() == Alliance.Red;});
     }
 
-    public static ConditionalCommand charge1MobilityBalance(SwerveDrive drive, Arm arm, Roller roller, Lights candle, BotPoseProvider source) {
-        return new ConditionalCommand(charge1MobilityBalance("Red", drive, arm, roller, candle, source), 
-            charge1MobilityBalance("Blue", drive, arm, roller, candle, source),
+    public static ConditionalCommand charge1MobilityBalance(SwerveDrive drive, Arm arm, Roller roller) {
+        return new ConditionalCommand(charge1MobilityBalance("Red", drive, arm, roller), 
+            charge1MobilityBalance("Blue", drive, arm, roller),
             () -> {return DriverStation.getAlliance() == Alliance.Red;});
     }
 
-    public static ConditionalCommand charge1HalfBalance(SwerveDrive drive, Arm arm, Roller roller, Lights candle, BotPoseProvider source) {
-        return new ConditionalCommand(charge1HalfBalance("Red", drive, arm, roller, candle, source), 
-            charge1HalfBalance("Blue", drive, arm, roller, candle, source),
+    public static ConditionalCommand charge1HalfBalance(SwerveDrive drive, Arm arm, Roller roller) {
+        return new ConditionalCommand(charge1HalfBalance("Red", drive, arm, roller), 
+            charge1HalfBalance("Blue", drive, arm, roller),
             () -> {return DriverStation.getAlliance() == Alliance.Red;});
     }
 
     // Wall
 
-    public static ConditionalCommand wall2(SwerveDrive drive, Arm arm, Roller roller, Lights candle, BotPoseProvider source) {
-        return new ConditionalCommand(wall2("Red", drive, arm, roller, candle, source), 
-            wall2("Blue", drive, arm, roller, candle, source),
+    public static ConditionalCommand wall2(SwerveDrive drive, Arm arm, Roller roller) {
+        return new ConditionalCommand(wall2("Red", drive, arm, roller), 
+            wall2("Blue", drive, arm, roller),
             () -> {return DriverStation.getAlliance() == Alliance.Red;});
     }
 
-    public static ConditionalCommand wall3(SwerveDrive drive, Arm arm, Roller roller, Lights candle, BotPoseProvider source) {
-        return new ConditionalCommand(wall3("Red", drive, arm, roller, candle, source), 
-            wall3("Blue", drive, arm, roller, candle, source),
+    public static ConditionalCommand wall3(SwerveDrive drive, Arm arm, Roller roller) {
+        return new ConditionalCommand(wall3("Red", drive, arm, roller), 
+            wall3("Blue", drive, arm, roller),
             () -> {return DriverStation.getAlliance() == Alliance.Red;});
     }
 
     /////////////////////////////////////////////
 
-    private static SequentialCommandGroup center2HalfBalance(String alliance, SwerveDrive drive, Arm arm, Lights candle, BotPoseProvider source) {
+    private static SequentialCommandGroup center2HalfBalance(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
         return new SequentialCommandGroup(
-            centerBaseTo1Mid(alliance, drive, intake, arm, grabber, candle, aiming, source),
+            centerBaseTo1Mid(alliance, drive, arm, roller),
             new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "CenterGrid1ToPiece2.wpilib.json"), new Rotation2d(), Rotation2d.fromDegrees(alliance.equals("Blue") ? -35 : 35), false)
                 .deadlineWith(intake.intakeFactory(), arm.stow(), grabber.holdConeFactory(), 
                     grabber.setPivotForwardsFactory().andThen(grabber.forcePivot()), aiming.noAimFactory()),
@@ -117,7 +117,6 @@ public class Autonomous {
                 new SequentialCommandGroup(
                     intake.stowFactory().alongWith(arm.stow(), grabber.holdConeFactory()).until(intake::isArmUp).withTimeout(0.5),
                     intake.stowFactory().alongWith(arm.stow(), grabber.holdConeFactory()).withTimeout(0.25),
-                    new Handoff(intake, arm, grabber, true, true),
                     arm.stow()
                         .alongWith(intake.stowFactory(), grabber.grabConeFactory().andThen(grabber.holdConeFactory()),
                             grabber.setPivotBackwardsFactory().andThen(grabber.forcePivot()))
@@ -126,16 +125,16 @@ public class Autonomous {
         );
     }
 
-    private static SequentialCommandGroup center3(String alliance, SwerveDrive drive, Intake intake, Arm arm, Grabber grabber, Lights candle, Aiming aiming, BotPoseProvider source) {
-        return center3Base(alliance, drive, intake, arm, grabber, candle, aiming, source,
+    private static SequentialCommandGroup center3(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
+        return center3Base(alliance, drive, arm, roller,
             new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "CenterGrid3ToMidfield.wpilib.json"), false)
                 .deadlineWith(intake.stowFactory(), arm.stow(() -> 300), grabber.holdConeFactory(), aiming.noAimFactory(),
                     grabber.setPivotForwardsFactory().andThen(grabber.forcePivot()))
         );
     }
 
-    private static SequentialCommandGroup center3Half(String alliance, SwerveDrive drive, Intake intake, Arm arm, Grabber grabber, Lights candle, Aiming aiming, BotPoseProvider source) {
-        return center3Base(alliance, drive, intake, arm, grabber, candle, aiming, source,
+    private static SequentialCommandGroup center3Half(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
+        return center3Base(alliance, drive, arm, roller,
             new SequentialCommandGroup(
                 new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "CenterGrid3ToPiece3.wpilib.json"), new Rotation2d(), Rotation2d.fromDegrees(alliance.equals("Blue") ? -80 : 80), false)
                     .deadlineWith(intake.intakeFactory(), arm.stow(() -> 300), grabber.holdConeFactory(), aiming.noAimFactory(),
@@ -153,41 +152,35 @@ public class Autonomous {
         );
     }
 
-    private static SequentialCommandGroup center3Balance(String alliance, SwerveDrive drive, Intake intake, Arm arm, Grabber grabber, Lights candle, Aiming aiming, BotPoseProvider source) {
-        return center3Base(alliance, drive, intake, arm, grabber, candle, aiming, source,
+    private static SequentialCommandGroup center3Balance(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
+        return center3Base(alliance, drive, arm, roller,
             new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "CenterGrid3ToEngage.wpilib.json"), false, true)
-                .deadlineWith(intake.downFactory(), arm.stow(() -> 300), grabber.holdConeFactory(), aiming.noAimFactory(),
+                .deadlineWith(intake.downFactory(), arm.stow(() -> 300),
                     grabber.setPivotForwardsFactory().andThen(grabber.forcePivot()))
                 .andThen(new AutoBalancePID(drive).alongWith(intake.downFactory(), arm.stow(), grabber.holdConeFactory()))
         );
     }
 
-    private static SequentialCommandGroup engage(String alliance, SwerveDrive drive, Arm arm, BotPoseProvider source) {
+    private static SequentialCommandGroup engage(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
         return new SequentialCommandGroup(
-            initialShootCubeMid(drive, arm, source),
-            new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "Engage.wpilib.json"), false, true)
-                .deadlineWith(intake.downFactory(), arm.stow(), grabber.holdCubeFactory(),
-                    grabber.setPivotForwardsFactory().andThen(grabber.forcePivot())),
-            new AutoBalancePID(drive).alongWith(intake.downFactory(), arm.stow(), grabber.holdCubeFactory())
+            initialShootCubeMid(drive, arm, roller),
+            new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "Engage.wpilib.json"), false, true),
+            new AutoBalancePID(drive)
         );
     }
 
-    private static SequentialCommandGroup charge1MobilityBalance(String alliance, SwerveDrive drive, Intake intake, Arm arm, Grabber grabber, Lights candle, BotPoseProvider source) {
+    private static SequentialCommandGroup charge1MobilityBalance(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
         return new SequentialCommandGroup(
-            initialShootCubeMid(drive, intake, arm, grabber, source),
-            new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "ChargeGrid5ToMobility.wpilib.json"), false)
-                .deadlineWith(intake.intakeFactory().withTimeout(1.5).andThen(intake.stowFactory()),
-                    arm.stowFrom(ArmStates.scoreCubeMiddle), grabber.holdConeFactory(), 
-                    grabber.setPivotForwardsFactory().andThen(grabber.forcePivot())),
-            new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "ChargeMobilityToEngage.wpilib.json"), false, true)
-                .alongWith(intake.stowFactory(), arm.stow(), grabber.holdConeFactory()),
-            new AutoBalancePID(drive).alongWith(intake.stowFactory(), grabber.holdConeFactory())
+            initialShootCubeMid(drive, arm, roller),
+            new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "ChargeGrid5ToMobility.wpilib.json"), false),
+            new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "ChargeMobilityToEngage.wpilib.json"), false, true),
+            new AutoBalancePID(drive)
         );
     }
 
-    private static SequentialCommandGroup charge1HalfBalance(String alliance, SwerveDrive drive, Intake intake, Arm arm, Grabber grabber, Lights candle, BotPoseProvider source) {
+    private static SequentialCommandGroup charge1HalfBalance(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
         return new SequentialCommandGroup(
-            initialShootCubeMid(drive, intake, arm, grabber, source),
+            initialShootCubeMid(drive, arm, roller),
             new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "ChargeGrid5ToPiece3.wpilib.json"), false)
                 .deadlineWith(intake.intakeFactory(), arm.stowFrom(ArmStates.scoreCubeMiddle), grabber.holdConeFactory(), 
                     grabber.setPivotForwardsFactory().andThen(grabber.forcePivot())),
@@ -206,9 +199,9 @@ public class Autonomous {
         );
     }
 
-    private static SequentialCommandGroup wall2(String alliance, SwerveDrive drive, Intake intake, Arm arm, Grabber grabber, Lights candle, Aiming aiming, BotPoseProvider source) {
+    private static SequentialCommandGroup wall2(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
         return new SequentialCommandGroup(
-            initialShootCubeMid(drive, intake, arm, grabber, source).deadlineWith(new RepeatCommand(aiming.setRetroPipelineFactory(true))),
+            initialShootCubeMid(drive, arm, roller).deadlineWith(new RepeatCommand(aiming.setRetroPipelineFactory(true))),
             new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "WallGrid8ToPiece4.wpilib.json"), false)
                 .deadlineWith(intake.intakeFactory(), arm.stowFrom(ArmStates.scoreCubeMiddle), grabber.holdConeFactory(), 
                     grabber.setPivotForwardsFactory().andThen(grabber.forcePivot())),
@@ -241,9 +234,9 @@ public class Autonomous {
         );
     }
 
-    private static SequentialCommandGroup wall3(String alliance, SwerveDrive drive, Intake intake, Arm arm, Grabber grabber, Lights candle, Aiming aiming, BotPoseProvider source) {
+    private static SequentialCommandGroup wall3(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
         return new SequentialCommandGroup(
-            wall2(alliance, drive, intake, arm, grabber, candle, aiming, source),
+            wall2(alliance, drive, arm, roller),
             new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "WallGrid9ToPiece3.wpilib.json"), new Rotation2d(), Rotation2d.fromDegrees(alliance.equals("Blue") ? 35 : -35), false)
                 .deadlineWith(intake.intakeFactory(), arm.stowFrom(ArmStates.scoreCubeMiddle), grabber.holdConeFactory(), 
                     grabber.setPivotForwardsFactory().andThen(grabber.forcePivot())),
@@ -275,9 +268,9 @@ public class Autonomous {
         );
     }
 
-    private static SequentialCommandGroup center3Base(String alliance, SwerveDrive drive, Intake intake, Arm arm, Grabber grabber, Lights candle, Aiming aiming, BotPoseProvider source, CommandBase ending) {
+    private static SequentialCommandGroup center3Base(String alliance, SwerveDrive drive, Arm arm, Roller roller, CommandBase ending) {
         return new SequentialCommandGroup(
-            centerBaseTo1Mid(alliance, drive, intake, arm, grabber, candle, aiming, source),
+            centerBaseTo1Mid(alliance, drive, arm, roller),
             new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "CenterGrid1ToPiece2.wpilib.json"), new Rotation2d(), Rotation2d.fromDegrees(alliance.equals("Blue") ? -35 : 35), false)
                 .deadlineWith(intake.intakeFactory(), arm.stow(() -> 300), grabber.holdConeFactory(), aiming.noAimFactory(),
                     grabber.setPivotForwardsFactory().andThen(grabber.forcePivot())),
@@ -307,9 +300,9 @@ public class Autonomous {
         );
     }
 
-    private static SequentialCommandGroup centerBaseTo1Mid(String alliance, SwerveDrive drive, Intake intake, Arm arm, Grabber grabber, Lights candle, Aiming aiming, BotPoseProvider source) {
+    private static SequentialCommandGroup centerBaseTo1Mid(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
         return new SequentialCommandGroup(
-            initialShootCubeMid(drive, intake, arm, grabber, source)
+            initialShootCubeMid(drive, arm, roller)
                 .deadlineWith(intake.setConeFactory(), 
                     candle.wantConeFactory(), 
                     aiming.noAimFactory(), 
@@ -342,7 +335,7 @@ public class Autonomous {
         );
     }
 
-    private static SequentialCommandGroup initialShootCubeMid(SwerveDrive drive, Arm arm, Roller roller, BotPoseProvider source) {
+    private static SequentialCommandGroup initialShootCubeMid(SwerveDrive drive, Arm arm, Roller roller) {
         return new SequentialCommandGroup(       
             arm.ScoreCubeMid().withTimeout(0.5),
             roller.ScoreCube()

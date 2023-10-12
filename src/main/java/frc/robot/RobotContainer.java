@@ -8,15 +8,18 @@ package frc.robot;
 import frc.robot.util.controllers.ButtonBox;
 import frc.robot.util.controllers.DriverController;
 import frc.robot.util.controllers.FrskyDriverController;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.AutoBalanceSimple;
+import frc.robot.commands.Autonomous;
+import frc.robot.commands.drive.AutoBalanceSimple;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Arm;
 //import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Roller;
+import frc.robot.util.BotPoseProvider;
 
 public class RobotContainer {
   private CommandBase m_autoCommand = new WaitCommand(15);
@@ -94,7 +97,7 @@ public class RobotContainer {
         .whileTrue(m_Arm.ScoreConeMid());
     m_buttonBox.setMiddle.and(m_buttonBox.gamepieceSwitch.negate())
         .whileTrue(m_Arm.ScoreCubeMid());
- 
+
     // HIGH
      m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
         .whileTrue(m_Arm.ScoreConeHigh());
@@ -103,9 +106,9 @@ public class RobotContainer {
 
     // GRAB FROM CHUTE
      m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch)
-         .whileTrue(m_Arm.GrabChuteCone()).whileTrue(m_Roller.MoveConerollers());
+        .whileTrue(m_Arm.GrabChuteCone()).whileTrue(m_Roller.MoveConerollers());
      m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch.negate())
-         .whileTrue(m_Arm.GrabChuteCube()).whileTrue(m_Roller.MoveCuberollers());
+        .whileTrue(m_Arm.GrabChuteCube()).whileTrue(m_Roller.MoveCuberollers());
 
     // SCORE
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch)
@@ -134,7 +137,7 @@ public class RobotContainer {
   //       .whileTrue(m_candleSubsystem.holdingCubeFactory());
   // }
 
-  // public void disabledPeriodic() {
+  public void disabledPeriodic() {
   // if (m_buttonBox.intakeButton.getAsBoolean() &&
   // !m_autoCommandName.equals("Wait")) {
   // m_autoCommand = new WaitCommand(15);
@@ -148,12 +151,11 @@ public class RobotContainer {
   // m_autoCommandName = "Engage";
   // }
 
-  // if (m_buttonBox.handoffButton.getAsBoolean() &&
-  // !m_autoCommandName.equals("Center2Balance")) {
-  // m_autoCommand = Autonomous.center2HalfBalance(m_drive, m_intake, m_arm,
-  // m_grabber, m_candleSubsystem, m_aiming, m_coprocessor);
-  // m_autoCommandName = "Center2Balance";
-  // }
+  if (m_buttonBox.Handoff.getAsBoolean() &&
+  !m_autoCommandName.equals("charge1MobilityBalance")) {
+  m_autoCommand = Autonomous.charge1MobilityBalance(m_drive, m_Arm, m_Roller);
+  m_autoCommandName = "charge1MobilityBalance";
+  }
 
   // if (m_buttonBox.setLow.getAsBoolean() &&
   // !m_autoCommandName.equals("Center3")) {
@@ -197,8 +199,8 @@ public class RobotContainer {
   // m_autoCommandName = "Wall3";
   // }
 
-  // SmartDashboard.putString("Auto", m_autoCommandName);
-  // }
+  SmartDashboard.putString("Auto", m_autoCommandName);
+  }
 
   public Command getAutonomousCommand() {
     return m_autoCommand;
