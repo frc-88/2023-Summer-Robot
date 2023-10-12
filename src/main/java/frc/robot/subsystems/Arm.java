@@ -121,17 +121,17 @@ public class Arm extends SubsystemBase {
 
   public CommandBase ScoreConeMid() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 23022);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 66177);
+      m_EndEffector.set(ControlMode.MotionMagic, 21000);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 80946);
     }, this);
   }
 
-  /* public CommandBase ScoreConeHigh() {
+  public CommandBase ScoreConeHigh() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 0);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+      m_EndEffector.set(ControlMode.MotionMagic, 14730);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 64177);
     }, this);
-  } */
+  }
 
   public CommandBase ScoreCubeLow() {
     return new RunCommand(() -> {
@@ -147,17 +147,17 @@ public class Arm extends SubsystemBase {
     }, this);
   }
 
- /*  public CommandBase ScoreCubeHigh() {
+  public CommandBase ScoreCubeHigh() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 0);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+      m_EndEffector.set(ControlMode.MotionMagic, -39948);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 76243);
     }, this);
   }
- */
+
   public CommandBase GrabChuteCone() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 0);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 0);
+      m_EndEffector.set(ControlMode.MotionMagic, -4040);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 54546);
     }, this);
   }
 

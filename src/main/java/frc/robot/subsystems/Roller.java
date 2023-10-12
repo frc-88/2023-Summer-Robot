@@ -43,8 +43,8 @@ public class Roller extends SubsystemBase {
 
   public CommandBase ScoreCone() {
     return new RunCommand(() -> {
-      m_Coneroller.set(-0.55);
-      m_Cuberoller.set(.55);
+      m_Coneroller.set(-0.25);
+      m_Cuberoller.set(1);
     }, this);
   }
 

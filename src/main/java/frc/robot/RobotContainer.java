@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AutoBalanceSimple;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Arm;
-import frc.robot.subsystems.Lights;
+//import frc.robot.subsystems.Lights;
 import frc.robot.subsystems.Roller;
 
 public class RobotContainer {
@@ -28,7 +28,7 @@ public class RobotContainer {
   // private final Joystick m_Joystick = new Joystick(Constants.Joystick);
   private final Arm m_Arm = new Arm();
   private final ButtonBox m_buttonBox = new ButtonBox(Constants.BUTTON_BOX_ID);
-  private final Lights m_candleSubsystem = new Lights(m_drive, m_Arm, () -> m_autoCommandName);
+  //private final Lights m_candleSubsystem = new Lights(m_drive, m_Arm, () -> m_autoCommandName);
   AutoBalanceSimple autoBalanceCommand = new AutoBalanceSimple(m_drive);
 
   public RobotContainer() {
@@ -41,13 +41,13 @@ public class RobotContainer {
     m_Arm.FreezeArm().schedule();
   }
 
-  public void enableInit() {
-    if (m_buttonBox.gamepieceSwitch.getAsBoolean()) {
-      m_candleSubsystem.wantConeFactory().schedule();
-    } else {
-      m_candleSubsystem.wantCubeFactory().schedule();
-    }
-  }
+  // public void enableInit() {
+  //   if (m_buttonBox.gamepieceSwitch.getAsBoolean()) {
+  //     m_candleSubsystem.wantConeFactory().schedule();
+  //   } else {
+  //     m_candleSubsystem.wantCubeFactory().schedule();
+  //   }
+  
 
   /*
    * /* private void configureControllers() {
@@ -94,18 +94,18 @@ public class RobotContainer {
         .whileTrue(m_Arm.ScoreConeMid());
     m_buttonBox.setMiddle.and(m_buttonBox.gamepieceSwitch.negate())
         .whileTrue(m_Arm.ScoreCubeMid());
-
+ 
     // HIGH
-    /* m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
+     m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
         .whileTrue(m_Arm.ScoreConeHigh());
     m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch.negate())
-        .whileTrue(m_Arm.ScoreCubeHigh()); */
+        .whileTrue(m_Arm.ScoreCubeHigh()); 
 
     // GRAB FROM CHUTE
-    m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch)
-        .whileTrue(m_Arm.GrabChuteCone()).whileTrue(m_Roller.MoveConerollers());
-    m_buttonBox.setHigh.and(m_buttonBox.gamepieceSwitch.negate())
-        .whileTrue(m_Arm.GrabChuteCube()).whileTrue(m_Roller.MoveCuberollers());
+     m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch)
+         .whileTrue(m_Arm.GrabChuteCone()).whileTrue(m_Roller.MoveConerollers());
+     m_buttonBox.getFromChuteButton.and(m_buttonBox.gamepieceSwitch.negate())
+         .whileTrue(m_Arm.GrabChuteCube()).whileTrue(m_Roller.MoveCuberollers());
 
     // SCORE
     m_buttonBox.scoreButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch)
@@ -122,17 +122,17 @@ public class RobotContainer {
         .whileTrue(m_Roller.MoveConerollers()).whileTrue(m_Arm.GrabCone());
     m_buttonBox.intakeButton.or(m_driverController.getScoreButton()).and(m_buttonBox.gamepieceSwitch.negate())
         .whileTrue(m_Roller.MoveCuberollers()).whileTrue(m_Arm.GrabCube());
-
-    // lights
-    m_buttonBox.gamepieceSwitch.and(m_Roller.havePieceTrigger().negate())
-        .whileTrue(m_candleSubsystem.wantConeFactory());
-    m_buttonBox.gamepieceSwitch.and(m_Roller.havePieceTrigger())
-        .whileTrue(m_candleSubsystem.holdingConeFactory());
-    m_buttonBox.gamepieceSwitch.negate().and(m_Roller.havePieceTrigger().negate()
-        .whileTrue(m_candleSubsystem.wantCubeFactory()));
-    m_buttonBox.gamepieceSwitch.negate().and(m_Roller.havePieceTrigger())
-        .whileTrue(m_candleSubsystem.holdingCubeFactory());
   }
+    // lights
+  //   m_buttonBox.gamepieceSwitch.and(m_Roller.havePieceTrigger().negate())
+  //       .whileTrue(m_candleSubsystem.wantConeFactory());
+  //   m_buttonBox.gamepieceSwitch.and(m_Roller.havePieceTrigger())
+  //       .whileTrue(m_candleSubsystem.holdingConeFactory());
+  //   m_buttonBox.gamepieceSwitch.negate().and(m_Roller.havePieceTrigger().negate()
+  //       .whileTrue(m_candleSubsystem.wantCubeFactory()));
+  //   m_buttonBox.gamepieceSwitch.negate().and(m_Roller.havePieceTrigger())
+  //       .whileTrue(m_candleSubsystem.holdingCubeFactory());
+  // }
 
   // public void disabledPeriodic() {
   // if (m_buttonBox.intakeButton.getAsBoolean() &&
