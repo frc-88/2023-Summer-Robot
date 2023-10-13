@@ -336,7 +336,7 @@ public class Autonomous {
 
     private static SequentialCommandGroup initialShootCubeMid(SwerveDrive drive, Arm arm, Roller roller) {
         return new SequentialCommandGroup(       
-            arm.ScoreCubeMidFront().withTimeout(1),
+            arm.stow().withTimeout(1),
             roller.ScoreCube().withTimeout(0.2)
             //arm.stow().withTimeout(0.1)
         );
