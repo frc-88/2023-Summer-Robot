@@ -118,6 +118,13 @@ public class Arm extends SubsystemBase {
     }, this);
   }
 
+  public CommandBase AutoEndEffectorSafe() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, 49489);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 51367);
+    }, this);
+  }
+
   public CommandBase ScoreConeLow() {
     return new RunCommand(() -> {
       m_EndEffector.set(ControlMode.MotionMagic, 0);
