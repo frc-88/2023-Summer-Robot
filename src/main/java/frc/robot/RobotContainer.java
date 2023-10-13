@@ -9,6 +9,8 @@ import frc.robot.util.controllers.ButtonBox;
 import frc.robot.util.controllers.DriverController;
 import frc.robot.util.controllers.FrskyDriverController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -24,6 +26,7 @@ import frc.robot.util.BotPoseProvider;
 public class RobotContainer {
   private CommandBase m_autoCommand = new WaitCommand(15);
   private String m_autoCommandName = "Wait";
+  private Pose2d m_alliancePose;
 
   private final SwerveDrive m_drive = new SwerveDrive();
   private final DriverController m_driverController = new FrskyDriverController(Constants.DRIVER_CONTROLLER_ID);
@@ -79,6 +82,14 @@ public class RobotContainer {
     SmartDashboard.putData("Field Drive", m_drive.fieldOrientedDriveCommandFactory(m_drive, m_driverController));
     SmartDashboard.putData("Grant Drive", m_drive.grantDriveCommandFactory(m_drive, m_driverController));
     SmartDashboard.putData(m_drive);
+  }
+
+  private void configureAutoAlliance(double positionY) {
+    if (DriverStation.getAlliance() == Alliance.Red) {
+      m_alliancePose = new Pose2d(14.75, positionY, null);
+    } else {
+      m_alliancePose = new Pose2d(1.75, positionY, null);
+    }
   }
 
   private void configureControllers() {

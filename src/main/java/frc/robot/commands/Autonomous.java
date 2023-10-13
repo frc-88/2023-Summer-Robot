@@ -11,12 +11,13 @@
 // and then the 2 piece is a a mid and a low
 
 // Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
+// Open posePlace Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -30,10 +31,10 @@ import frc.robot.Constants;
 import frc.robot.commands.drive.AutoBalancePID;
 import frc.robot.commands.drive.AutoBalanceSimple;
 import frc.robot.commands.drive.FollowHolonomicTrajectory;
+import frc.robot.commands.drive.Localize;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Roller;
 import frc.robot.subsystems.SwerveDrive;
-import frc.robot.util.BotPoseProvider;
 import frc.robot.util.TrajectoryHelper;
 
 
@@ -68,15 +69,15 @@ public class Autonomous {
 
     // Charge Station
 
-    public static ConditionalCommand engage(SwerveDrive drive, Arm arm, Roller roller) {
-        return new ConditionalCommand(engage("Red", drive, arm, roller), 
-            engage("Blue",drive,arm, roller),
+    public static ConditionalCommand engage(SwerveDrive drive, Arm arm, Roller roller, Pose2d posePlace) {
+        return new ConditionalCommand(engage("Red", drive, arm, roller, posePlace), 
+            engage("Blue", drive, arm, roller, posePlace),
             () -> {return DriverStation.getAlliance() == Alliance.Red;});
     }
 
-    public static ConditionalCommand charge1MobilityBalance(SwerveDrive drive, Arm arm, Roller roller) {
-        return new ConditionalCommand(charge1MobilityBalance("Red", drive, arm, roller), 
-            charge1MobilityBalance("Blue", drive, arm, roller),
+    public static ConditionalCommand charge1MobilityBalance(SwerveDrive drive, Arm arm, Roller roller, Pose2d posePlace) {
+        return new ConditionalCommand(charge1MobilityBalance("Red", drive, arm, roller, posePlace), 
+            charge1MobilityBalance("Blue", drive, arm, roller, posePlace),
             () -> {return DriverStation.getAlliance() == Alliance.Red;});
     }
 
@@ -160,17 +161,17 @@ public class Autonomous {
     //     );
     // }
 
-    private static SequentialCommandGroup engage(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
+    private static SequentialCommandGroup engage(String alliance, SwerveDrive drive, Arm arm, Roller roller, Pose2d posePlace) {
         return new SequentialCommandGroup(
-            initialShootCubeMid(drive, arm, roller),
+            initialShootCubeMid(drive, arm, roller, posePlace),
             new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "Engage.wpilib.json"), false, true),
             new AutoBalancePID(drive)
         );
     }
 
-    private static SequentialCommandGroup charge1MobilityBalance(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
+    private static SequentialCommandGroup charge1MobilityBalance(String alliance, SwerveDrive drive, Arm arm, Roller roller, Pose2d posePlace) {
         return new SequentialCommandGroup(
-            initialShootCubeMid(drive, arm, roller),
+            initialShootCubeMid(drive, arm, roller, posePlace),
             new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "ChargeGrid5ToMobility.wpilib.json"), true),
             new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "ChargeMobilityToEngage.wpilib.json"), true, true),
             new AutoBalancePID(drive)
@@ -334,9 +335,10 @@ public class Autonomous {
     //     );
     // }
 
-    private static SequentialCommandGroup initialShootCubeMid(SwerveDrive drive, Arm arm, Roller roller) {
+    private static SequentialCommandGroup initialShootCubeMid(SwerveDrive drive, Arm arm, Roller roller, Pose2d posePlace) {
         return new SequentialCommandGroup(       
-            arm.stow().withTimeout(1),
+            new Localize(drive, posePlace).withTimeout(0.05),
+            arm.ScoreCubeMidFront().withTimeout(1),
             roller.ScoreCube().withTimeout(0.2)
             //arm.stow().withTimeout(0.1)
         );
