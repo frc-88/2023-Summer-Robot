@@ -84,11 +84,11 @@ public class RobotContainer {
     SmartDashboard.putData(m_drive);
   }
 
-  private void configureAutoAlliance(double positionY) {
+  private double configureAutoAlliance() {
     if (DriverStation.getAlliance() == Alliance.Red) {
-      m_alliancePose = new Pose2d(14.75, positionY, null);
+      return Constants.RED_X_POS;
     } else {
-      m_alliancePose = new Pose2d(1.75, positionY, null);
+      return Constants.BLUE_X_POS;
     }
   }
 
@@ -162,13 +162,12 @@ public class RobotContainer {
   // }
 
   if (m_buttonBox.Handoff.getAsBoolean() && !m_autoCommandName.equals("charge1MobilityBalance")) {
-  m_autoCommand = Autonomous.charge1MobilityBalance(m_drive, m_Arm, m_Roller);
+  m_autoCommand = Autonomous.charge1MobilityBalance(m_drive, m_Arm, m_Roller, new Pose2d(configureAutoAlliance(), 2.83, null));
   m_autoCommandName = "charge1MobilityBalance";
   }
 
   // if (m_buttonBox.setLow.getAsBoolean() &&
   // !m_autoCommandName.equals("Center3")) {
-  // m_autoCommand = Autonomous.center3(m_drive, m_intake, m_arm, m_grabber,
   // m_candleSubsystem, m_aiming, m_coprocessor);
   // m_autoCommandName = "Center3";
   // }

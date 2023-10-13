@@ -67,4 +67,6 @@ public final class Constants {
      public static final double MAX_TRAJ_VELOCITY = 4;
      public static final double MAX_TRAJ_CENTRIP_ACC = 3;
      public static final double MAX_TRAJ_ACCELERATION = 3;
+     public static final double RED_X_POS = 14.75;
+     public static final double BLUE_X_POS = 1.75;
 }
