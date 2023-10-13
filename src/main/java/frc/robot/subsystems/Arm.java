@@ -111,6 +111,13 @@ public class Arm extends SubsystemBase {
     }, this);
   }
 
+  public CommandBase ScoreCubeMidFront() {
+    return new RunCommand(() -> {
+      m_EndEffector.set(ControlMode.MotionMagic, -71549);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 51367);
+    }, this);
+  }
+
   public CommandBase ScoreConeLow() {
     return new RunCommand(() -> {
       m_EndEffector.set(ControlMode.MotionMagic, 0);

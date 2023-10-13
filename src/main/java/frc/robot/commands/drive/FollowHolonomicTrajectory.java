@@ -44,8 +44,8 @@ public class FollowHolonomicTrajectory extends CommandBase {
   private boolean m_cancel = false;
   private double m_lastRoll;
 
-  private static boolean forceResetOdometry = false;
-  private static boolean ignoreLocalizationErrors = false;
+  private static boolean forceResetOdometry = true;
+  private static boolean ignoreLocalizationErrors = true;
 
   /** Creates a new FollowHolonomicTrajectory. */
   public FollowHolonomicTrajectory(SwerveDrive drive, Trajectory trajectory, Rotation2d startRotation,  Rotation2d endRotation, boolean resetOdometry, boolean stopOnTip) {

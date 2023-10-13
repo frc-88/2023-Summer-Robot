@@ -171,8 +171,8 @@ public class Autonomous {
     private static SequentialCommandGroup charge1MobilityBalance(String alliance, SwerveDrive drive, Arm arm, Roller roller) {
         return new SequentialCommandGroup(
             initialShootCubeMid(drive, arm, roller),
-            new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "ChargeGrid5ToMobility.wpilib.json"), false),
-            new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "ChargeMobilityToEngage.wpilib.json"), false, true),
+            new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "ChargeGrid5ToMobility.wpilib.json"), true),
+            new FollowHolonomicTrajectory(drive, TrajectoryHelper.loadJSONTrajectory(alliance + "ChargeMobilityToEngage.wpilib.json"), true, true),
             new AutoBalancePID(drive)
         );
     }
@@ -336,9 +336,9 @@ public class Autonomous {
 
     private static SequentialCommandGroup initialShootCubeMid(SwerveDrive drive, Arm arm, Roller roller) {
         return new SequentialCommandGroup(       
-            arm.FreezeArm().withTimeout(0.5),
-            roller.ScoreCube(),
-            arm.stow()
+            arm.ScoreCubeMidFront().withTimeout(1),
+            roller.ScoreCube().withTimeout(0.2)
+            //arm.stow().withTimeout(0.1)
         );
     }
 }
