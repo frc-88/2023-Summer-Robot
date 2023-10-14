@@ -134,8 +134,8 @@ public class Arm extends SubsystemBase {
 
   public CommandBase ScoreConeMid() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, 21000);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 80946);
+      m_EndEffector.set(ControlMode.MotionMagic, 17678);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 78745);
     }, this);
   }
 
@@ -169,8 +169,8 @@ public class Arm extends SubsystemBase {
 
   public CommandBase GrabChuteCone() {
     return new RunCommand(() -> {
-      m_EndEffector.set(ControlMode.MotionMagic, -4040);
-      m_ArmMainMain.set(ControlMode.MotionMagic, 54546);
+      m_EndEffector.set(ControlMode.MotionMagic, -12876);
+      m_ArmMainMain.set(ControlMode.MotionMagic, 48983);
     }, this);
   }
 
