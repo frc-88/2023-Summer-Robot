@@ -339,8 +339,9 @@ public class Autonomous {
         return new SequentialCommandGroup(       
             new Localize(drive, posePlace).withTimeout(0.05),
             arm.ScoreCubeMidFront().withTimeout(1),
-            roller.ScoreCube().withTimeout(0.2)
-            //arm.stow().withTimeout(0.1)
+            roller.ScoreCube().withTimeout(0.2),
+            arm.AutoEndEffectorSafe().withTimeout(0.75),
+            arm.stow().withTimeout(1)
         );
     }
 }
